@@ -88,6 +88,18 @@ export default function Navbar() {
             {link.label}
           </Link>
         ))}
+        <div className="nav__mobile-actions">
+          <a
+            href={CTA_CONTACT.whatsappUrl}
+            className="btn btn--ghost btn--sm nav__whatsapp"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={closeMobile}
+          >
+            <WhatsAppIcon />
+            WhatsApp
+          </a>
+        </div>
         <Link href="/order" className="btn btn--nav-cta" onClick={closeMobile}>
           Order Now
         </Link>

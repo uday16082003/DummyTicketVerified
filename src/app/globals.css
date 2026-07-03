@@ -568,6 +568,19 @@ ul { list-style: none; }
 }
 .nav__mobile a:last-child { border-bottom: none; margin-top: 8px; }
 
+.nav__mobile-actions {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.nav__mobile-actions .nav__whatsapp {
+  flex: 1;
+  justify-content: center;
+}
+
 /* ═══════════════════════════════════════════
    HERO SECTION — InvisibleBrowser-style
    ═══════════════════════════════════════════ */
@@ -4237,12 +4250,23 @@ a.hero__highlight:hover {
     grid-template-columns: 1fr;
   }
 
-  .nav__links,
-  .nav__actions { display: none; }
+  .nav__links { display: none; }
+
+  .nav__actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  .nav__actions .nav__whatsapp,
+  .nav__actions .btn--nav-cta {
+    display: none;
+  }
 
   .nav__burger { display: flex; }
 
   .nav__mobile.is-open { display: flex; }
+
+  .nav__mobile-actions { display: flex; }
 
   .hero__pills { flex-direction: row; align-items: flex-start; }
   .hero__highlights { flex-direction: row; gap: 12px 16px; }
