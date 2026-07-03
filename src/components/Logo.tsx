@@ -10,8 +10,8 @@ export default function Logo({ className = "" }: LogoProps) {
       <Image
         src="/dummy-logo-icon.png"
         alt=""
-        width={506}
-        height={461}
+        width={44}
+        height={40}
         priority
         className="logo__icon"
       />

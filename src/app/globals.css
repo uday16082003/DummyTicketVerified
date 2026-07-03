@@ -321,13 +321,69 @@ ul { list-style: none; }
 .nav__logo {
   flex-shrink: 0;
   color: var(--color-text);
+  max-width: min(220px, 42vw);
+  overflow: hidden;
 }
 
 /* ── Brand wordmark ── */
 .logo {
   display: inline-flex;
   align-items: center;
-  gap: 22px;
+  gap: 14px;
+  max-width: 100%;
+}
+
+.logo__icon {
+  display: block;
+  width: 40px;
+  height: auto;
+  flex-shrink: 0;
+}
+
+.logo__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  line-height: 1.1;
+  min-width: 0;
+}
+
+.logo__title {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.logo__title-primary {
+  color: var(--color-text);
+}
+
+.logo__title-accent {
+  color: var(--logo-blue);
+}
+
+.logo__subtitle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.logo__subtitle-line {
+  width: 14px;
+  height: 1px;
+  background: var(--logo-blue);
+  opacity: 0.7;
+  flex-shrink: 0;
+}
+
+.logo__subtitle-text {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--logo-blue);
+  white-space: nowrap;
 }
 
 .logo__mark {
@@ -411,7 +467,24 @@ ul { list-style: none; }
 
 @media (max-width: 768px) {
   .logo {
-    gap: 16px;
+    gap: 12px;
+  }
+
+  .logo__icon {
+    width: 34px;
+  }
+
+  .logo__title {
+    font-size: 0.9375rem;
+  }
+
+  .logo__subtitle-text {
+    font-size: 0.625rem;
+    letter-spacing: 0.12em;
+  }
+
+  .logo__subtitle-line {
+    width: 10px;
   }
 
   .logo__mark {
@@ -4902,6 +4975,31 @@ a.hero__highlight:hover {
   padding: 64px 0 0;
 }
 
+.site-footer .logo__title-primary {
+  color: #ffffff;
+}
+
+.site-footer .logo__title-accent,
+.site-footer .logo__subtitle-text {
+  color: var(--footer-logo-blue);
+}
+
+.site-footer .logo__subtitle-line {
+  background: var(--footer-logo-blue);
+}
+
+.site-footer .logo {
+  gap: 16px;
+}
+
+.site-footer .logo__icon {
+  width: 44px;
+}
+
+.site-footer .logo__title {
+  font-size: 1.125rem;
+}
+
 .site-footer .logo__primary {
   color: #ffffff;
   font-size: 0.9375rem;
@@ -4942,6 +5040,8 @@ a.hero__highlight:hover {
 .site-footer__logo {
   display: inline-flex;
   width: fit-content;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .site-footer__tagline {

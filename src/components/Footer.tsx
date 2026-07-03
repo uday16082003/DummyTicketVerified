@@ -144,7 +144,7 @@ export default function Footer() {
 
         <div className="site-footer__bar">
           <p className="site-footer__copyright">
-            © 2026 TheDummyTickets.com. All rights reserved.
+            © 2026 DummyTicketVerified. All rights reserved.
           </p>
 
           <div className="site-footer__bar-end">
