@@ -1,0 +1,221 @@
+/* Confirmation page — scoped styles (also mirrored in globals.css) */
+.confirmation-page {
+  position: relative;
+  min-height: 86vh;
+  padding-top: var(--nav-height);
+  background: var(--color-bg);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.confirmation-page__ambient {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.confirmation-page__grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at 50% 30%, black 0%, transparent 70%);
+}
+
+.confirmation-page__orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: var(--orb-opacity, 0.45);
+}
+
+.confirmation-page__orb--1 {
+  top: -10%;
+  left: 10%;
+  width: 420px;
+  height: 420px;
+  background: rgba(52, 211, 153, 0.16);
+}
+
+.confirmation-page__orb--2 {
+  bottom: -10%;
+  right: 8%;
+  width: 380px;
+  height: 380px;
+  background: rgba(34, 211, 238, 0.12);
+}
+
+.confirmation-page__inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: 64px 24px 96px;
+  display: flex;
+  justify-content: center;
+}
+
+.confirmation-card {
+  width: 100%;
+  max-width: 520px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 24px;
+  padding: 48px 40px;
+  text-align: center;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
+  animation: confirmationCardIn 0.5s ease both;
+}
+
+@keyframes confirmationCardIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.confirmation-card__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  margin-bottom: 24px;
+  background: rgba(52, 211, 153, 0.12);
+  border: 1px solid rgba(52, 211, 153, 0.32);
+  color: var(--color-success);
+}
+
+.confirmation-card__title {
+  margin: 0 0 28px;
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+}
+
+.confirmation-card__order-box {
+  margin: 0 0 28px;
+  padding: 20px 24px;
+  border-radius: 16px;
+  background: rgba(52, 211, 153, 0.08);
+  border: 1px solid rgba(52, 211, 153, 0.28);
+}
+
+.confirmation-card__order-label {
+  margin: 0 0 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-success);
+}
+
+.confirmation-card__order-id {
+  margin: 0 0 8px;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--color-text);
+  letter-spacing: 0.03em;
+  font-family: "Courier New", monospace;
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+
+.confirmation-card__order-note {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+}
+
+.confirmation-card__details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 0 32px;
+}
+
+.confirmation-card__details p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.confirmation-card__details strong {
+  color: var(--color-text);
+}
+
+.confirmation-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+}
+
+.confirmation-card__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 26px;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.confirmation-card__btn--whatsapp {
+  background: #25d366;
+  color: #06210f;
+}
+
+.confirmation-card__btn--whatsapp:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(37, 211, 102, 0.32);
+}
+
+.confirmation-card__btn--outline {
+  background: transparent;
+  color: var(--color-text);
+  border: 1px solid var(--color-border-strong);
+}
+
+.confirmation-card__btn--outline:hover {
+  background: var(--color-overlay-hover);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 560px) {
+  .confirmation-card {
+    padding: 36px 24px;
+    border-radius: 20px;
+  }
+
+  .confirmation-card__order-id {
+    font-size: 1.25rem;
+  }
+
+  .confirmation-card__actions {
+    flex-direction: column;
+  }
+
+  .confirmation-card__btn {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .confirmation-card {
+    animation: none;
+  }
+}

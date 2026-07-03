@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import OrderConfirmation from "@/components/OrderConfirmation";
+import "./confirmation.css";
 
 export const metadata: Metadata = {
   title: "Booking Received — Dummy Ticket Verified",
