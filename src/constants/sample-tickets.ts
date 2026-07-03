@@ -18,6 +18,7 @@ export const SAMPLE_TICKETS: SampleTicket[] = [
     logo: "/logos/Air_India_Logo.svg.png",
     accent: "#e31837",
     bgPosition: "0% 0%",
+    pdfHref: "/samples/airindiadummy.pdf",
   },
   {
     id: "british-airways",
