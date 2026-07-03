@@ -53,7 +53,7 @@ export default function OrderConfirmation() {
           </p>
         )}
         <p>
-          Our team will deliver your ticket within <strong>10 to 20 minutes</strong>.
+          Our team will deliver your ticket within <strong>15 to 30 minutes</strong>.
         </p>
       </div>
 
