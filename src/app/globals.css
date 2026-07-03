@@ -1270,6 +1270,25 @@ a.hero__highlight:hover {
   background: var(--color-muted);
 }
 
+/* Phone: show full form height — page scrolls, not the form panel */
+@media (max-width: 768px) {
+  .glow-border__inner {
+    overflow: visible;
+  }
+
+  .preview-window {
+    max-height: none;
+  }
+
+  .booking-form {
+    flex: none;
+    min-height: auto;
+    overflow: visible;
+    overscroll-behavior: auto;
+    scrollbar-gutter: auto;
+  }
+}
+
 .booking-form__modes {
   display: flex;
   align-items: stretch;
