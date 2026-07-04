@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import BookingPanel from "@/components/BookingPanel";
+import HeroSearchPanel from "@/components/HeroSearchPanel";
 import { HERO_TRAVEL_SCENE } from "@/constants/hero-assets";
 
 const HIGHLIGHTS = [
@@ -110,7 +110,7 @@ export default function Hero() {
           </div>
         </div>
 
-        <BookingPanel className="reveal reveal--delay-2" />
+        <HeroSearchPanel className="reveal reveal--delay-2" />
       </div>
     </section>
   );

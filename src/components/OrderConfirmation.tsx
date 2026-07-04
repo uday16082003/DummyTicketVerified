@@ -24,6 +24,7 @@ export default function OrderConfirmation() {
   const searchParams = useSearchParams();
   const orderId = searchParams.get("orderId");
   const email = searchParams.get("email");
+  const emailSent = searchParams.get("emailSent") !== "0";
 
   const whatsappMessage = orderId
     ? `Hi, I just placed a booking. My Order ID is ${orderId}.`
@@ -47,9 +48,15 @@ export default function OrderConfirmation() {
       )}
 
       <div className="confirmation-card__details">
-        {email && (
+        {email && emailSent && (
           <p>
             We&apos;ve sent a confirmation email to <strong>{email}</strong>.
+          </p>
+        )}
+        {email && !emailSent && (
+          <p>
+            We couldn&apos;t send a confirmation email to <strong>{email}</strong> right now.
+            Please save your order ID and message us on WhatsApp so we can confirm your booking.
           </p>
         )}
         <p>

@@ -9,9 +9,16 @@ function WhatsAppIcon() {
   );
 }
 
-export default function OrderSidebar() {
+type OrderSidebarProps = {
+  layout?: "sidebar" | "promo";
+};
+
+export default function OrderSidebar({ layout = "sidebar" }: OrderSidebarProps) {
   return (
-    <aside className="order-sidebar" aria-labelledby="order-sidebar-heading">
+    <aside
+      className={`order-sidebar${layout === "promo" ? " order-sidebar--promo" : ""}`}
+      aria-labelledby="order-sidebar-heading"
+    >
       <div className="order-sidebar__eyebrow">
         <span className="order-sidebar__eyebrow-dot" aria-hidden="true" />
         Book now

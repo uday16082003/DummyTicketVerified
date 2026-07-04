@@ -178,6 +178,9 @@ export default function BookingForm() {
         orderId: result.orderId,
         email: payload.email,
       });
+      if (result.emailSent === false) {
+        params.set("emailSent", "0");
+      }
       router.push(`/order/confirmation?${params.toString()}`);
     } catch (error) {
       setStatus("error");

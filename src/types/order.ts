@@ -30,6 +30,7 @@ export type OrderApiResponse = {
   ok: boolean;
   message?: string;
   orderId?: string;
+  emailSent?: boolean;
 };
 
 export function passengerFullName(passenger: Passenger): string {

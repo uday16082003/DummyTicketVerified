@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:clean": "rm -rf .next && next dev",
     "predev": "node scripts/generate-email-images.mjs",
     "build": "node scripts/generate-email-images.mjs && next build",
     "start": "next start",

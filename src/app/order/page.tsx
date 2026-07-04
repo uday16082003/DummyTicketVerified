@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import OrderSidebar from "@/components/OrderSidebar";
+import OrderBookingPage from "@/components/OrderBookingPage";
 import OrderPurposeSection from "@/components/OrderPurposeSection";
-import BookingPanel from "@/components/BookingPanel";
 import ScrollRevealInit from "@/components/ScrollRevealInit";
 
 export const metadata: Metadata = {
@@ -25,12 +26,15 @@ export default function OrderPage() {
         </div>
 
         <div className="container order-page__inner">
-          <div className="order-page__layout">
-            <OrderSidebar />
-            <div className="order-page__form-column">
-              <BookingPanel />
-            </div>
-          </div>
+          <Suspense
+            fallback={<p className="order-page__loading">Loading booking form…</p>}
+          >
+            <OrderBookingPage />
+          </Suspense>
+
+          <section className="order-page__promo" aria-label="Why book with us">
+            <OrderSidebar layout="promo" />
+          </section>
 
           <div className="order-page__details">
             <OrderPurposeSection />

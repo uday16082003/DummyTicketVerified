@@ -137,12 +137,22 @@ export async function POST(request: Request) {
     const body = await request.json();
     const order = parseOrderPayload(body);
     const orderId = generateOrderId();
-    await sendOrderEmails(order, orderId);
+
+    let emailSent = true;
+    try {
+      await sendOrderEmails(order, orderId);
+    } catch (mailError) {
+      emailSent = false;
+      console.error("[api/order] Order saved but email failed:", mailError);
+    }
 
     return NextResponse.json({
       ok: true,
       orderId,
-      message: "Order submitted successfully. Check your email for confirmation.",
+      emailSent,
+      message: emailSent
+        ? "Order submitted successfully. Check your email for confirmation."
+        : "Order received. We could not send the confirmation email right now — save your order ID and contact us on WhatsApp.",
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unable to submit order";
