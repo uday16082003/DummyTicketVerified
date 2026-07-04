@@ -597,7 +597,8 @@ ul { list-style: none; }
   display: flex;
   align-items: center;
   padding-top: var(--nav-height);
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: visible;
   background: var(--color-bg);
 }
 
@@ -1268,6 +1269,23 @@ a.hero__highlight:hover {
 
 .booking-form::-webkit-scrollbar-thumb:hover {
   background: var(--color-muted);
+}
+
+/* Home hero search: page scrolls, not the preview panel */
+.hero .hero__visual .glow-border__inner {
+  overflow: visible;
+}
+
+.hero .hero__visual .preview-window {
+  max-height: none;
+}
+
+.hero .hero__visual .booking-form {
+  flex: none;
+  min-height: auto;
+  overflow: visible;
+  overscroll-behavior: auto;
+  scrollbar-gutter: auto;
 }
 
 /* Phone: show full form height — page scrolls, not the form panel */
