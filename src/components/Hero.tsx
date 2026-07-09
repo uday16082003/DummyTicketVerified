@@ -1,9 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import HeroSearchPanel from "@/components/HeroSearchPanel";
-import { HERO_TRAVEL_SCENE } from "@/constants/hero-assets";
 
 const HIGHLIGHTS = [
   {
@@ -37,24 +35,7 @@ const HIGHLIGHTS = [
 
 export default function Hero() {
   return (
-    <section className="hero" id="hero">
-      <div className="hero__travel-scene" aria-hidden="true">
-        <Image
-          src={HERO_TRAVEL_SCENE}
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="hero__travel-scene-img"
-        />
-      </div>
-
-      <div className="hero__orbs" aria-hidden="true">
-        <div className="hero__orb hero__orb--1" />
-        <div className="hero__orb hero__orb--2" />
-        <div className="hero__orb hero__orb--3" />
-      </div>
-
+    <section className="hero hero--etihad" id="hero">
       <div className="container hero__inner">
         <div className="hero__content reveal">
           <div className="hero__pills">
@@ -67,8 +48,8 @@ export default function Hero() {
             </span>
             <span className="hero__pill-border">
               <span className="hero__pill hero__pill--promo">
-                <span className="hero__pill-emoji" aria-hidden="true">🎁</span>
-                Get your verified travel itinerary now!
+                <span className="hero__pill-emoji" aria-hidden="true">✦</span>
+                Get your verified travel itinerary now
               </span>
             </span>
           </div>
@@ -89,7 +70,7 @@ export default function Hero() {
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                 <path d="M5 12h14M13 6l6 6-6 6" />
               </svg>
-              Get Dummy Ticket Now!
+              Get Dummy Ticket Now
             </Link>
           </span>
 

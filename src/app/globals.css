@@ -67,8 +67,8 @@
     transparent 100%
   );
 
-  --font-sans:  var(--font-source-sans), "Source Sans 3", "Trebuchet MS", "Segoe UI", sans-serif;
-  --font-serif: var(--font-source-sans), "Source Sans 3", "Trebuchet MS", "Segoe UI", sans-serif;
+  --font-sans:  var(--font-jost), "Jost", "Helvetica Neue", Arial, sans-serif;
+  --font-serif: var(--font-jost), "Jost", "Helvetica Neue", Arial, sans-serif;
   --container:  1200px;
   --nav-height: 72px;
   --radius-sm:  8px;
@@ -775,12 +775,12 @@ ul { list-style: none; }
   box-shadow: 0 4px 24px rgba(var(--color-blue-rgb), 0.1);
 }
 
-[data-theme="light"] .booking-form__field input {
+[data-theme="light"] .booking-form__field > input {
   border-color: #e2e8f0;
   box-shadow: none;
 }
 
-[data-theme="light"] .booking-form__field input:focus {
+[data-theme="light"] .booking-form__field > input:focus {
   border-color: var(--color-blue);
   box-shadow: 0 0 0 3px rgba(var(--color-blue-rgb), 0.12);
 }
@@ -1501,7 +1501,8 @@ a.hero__highlight:hover {
   grid-column: 1 / -1;
 }
 
-.booking-form__field input {
+.booking-form__field > input,
+.booking-form__field > textarea {
   width: 100%;
   padding: 12px 14px;
   font-family: var(--font-sans);
@@ -1514,16 +1515,18 @@ a.hero__highlight:hover {
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.booking-form__field input::placeholder {
+.booking-form__field > input::placeholder,
+.booking-form__field > textarea::placeholder {
   color: var(--color-placeholder);
 }
 
-.booking-form__field input:focus {
+.booking-form__field > input:focus,
+.booking-form__field > textarea:focus {
   border-color: rgba(34, 211, 238, 0.5);
   box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.1);
 }
 
-.booking-form__field input[type="date"] {
+.booking-form__field > input[type="date"] {
   color-scheme: light dark;
 }
 
@@ -1715,15 +1718,16 @@ a.hero__highlight:hover {
 
 .booking-form__input-wrap {
   position: relative;
-  display: flex;
-  align-items: center;
+  display: block;
   width: 100%;
 }
 
 .booking-form__input-icon {
   position: absolute;
-  left: 12px;
-  z-index: 1;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1734,7 +1738,7 @@ a.hero__highlight:hover {
 .booking-form__input-wrap input,
 .booking-form__input-wrap select {
   width: 100%;
-  padding: 12px 14px 12px 40px;
+  padding: 12px 14px 12px 44px;
   font-family: var(--font-sans);
   font-size: 0.9375rem;
   color: var(--color-text);
@@ -1792,7 +1796,7 @@ a.hero__highlight:hover {
 }
 
 .booking-form__input-wrap--phone input {
-  padding-left: 40px;
+  padding-left: 44px;
 }
 
 .booking-form__add-passenger {

@@ -1,0 +1,242 @@
+/* ═══════════════════════════════════════════
+   Etihad-inspired theme — Features section
+   ═══════════════════════════════════════════ */
+
+.features--etihad {
+  background: var(--etihad-navy-900);
+  padding: 72px 0 88px;
+}
+
+.features--etihad::before {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(179, 142, 93, 0.35),
+    transparent
+  );
+}
+
+.features--etihad .features__header {
+  text-align: left;
+  max-width: 720px;
+  margin-bottom: 48px;
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.features--etihad .features__title {
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  color: var(--etihad-white);
+  line-height: 1.25;
+}
+
+.features--etihad .features__title-accent {
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-weight: 400;
+  color: var(--etihad-gold);
+  background: none;
+  -webkit-text-fill-color: currentColor;
+}
+
+.features--etihad .features__subtitle {
+  color: var(--etihad-text-muted-on-dark);
+  font-weight: 300;
+  font-size: 1.0625rem;
+  max-width: 640px;
+  text-align: left;
+  margin-left: 0;
+}
+
+.features--etihad .features__grid {
+  gap: 16px;
+}
+
+/* Unified Etihad card palette */
+.features--etihad .feature-flip--cyan,
+.features--etihad .feature-flip--green,
+.features--etihad .feature-flip--purple,
+.features--etihad .feature-flip--pink {
+  --flip-stat-color: var(--etihad-gold);
+  --flip-accent: linear-gradient(135deg, var(--etihad-gold-dark) 0%, var(--etihad-gold) 100%);
+  --flip-shadow: 0 12px 32px rgba(179, 142, 93, 0.18);
+}
+
+.features--etihad .feature-flip__face--front {
+  background: var(--etihad-navy-700);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: none;
+  padding: 32px 24px 36px;
+}
+
+.features--etihad .feature-flip--green .feature-flip__face--front {
+  border-color: rgba(179, 142, 93, 0.45);
+  box-shadow: 0 0 0 1px rgba(179, 142, 93, 0.2);
+}
+
+.features--etihad .feature-flip__icon,
+.features--etihad .feature-flip__back-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(179, 142, 93, 0.35);
+  color: var(--etihad-gold-light);
+  box-shadow: none;
+}
+
+.features--etihad .feature-flip--cyan .feature-flip__icon,
+.features--etihad .feature-flip--cyan .feature-flip__back-icon,
+.features--etihad .feature-flip--green .feature-flip__icon,
+.features--etihad .feature-flip--green .feature-flip__back-icon,
+.features--etihad .feature-flip--purple .feature-flip__icon,
+.features--etihad .feature-flip--purple .feature-flip__back-icon,
+.features--etihad .feature-flip--pink .feature-flip__icon,
+.features--etihad .feature-flip--pink .feature-flip__back-icon {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(179, 142, 93, 0.35);
+  color: var(--etihad-gold-light);
+  box-shadow: none;
+}
+
+.features--etihad .feature-flip__stat {
+  color: var(--etihad-gold);
+  font-weight: 500;
+}
+
+.features--etihad .feature-flip__stat-unit {
+  color: var(--etihad-text-muted-on-dark);
+  font-weight: 400;
+}
+
+.features--etihad .feature-flip__title {
+  color: var(--etihad-white);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.features--etihad .feature-flip__desc {
+  color: var(--etihad-text-muted-on-dark);
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+.features--etihad .feature-flip__face--back {
+  background: linear-gradient(135deg, var(--etihad-gold-dark) 0%, var(--etihad-gold) 100%);
+  box-shadow: 0 12px 32px rgba(179, 142, 93, 0.22);
+}
+
+.features--etihad .feature-flip__back-inner {
+  background: var(--etihad-navy-800);
+  border-radius: 13px;
+}
+
+.features--etihad .feature-flip__back-stat {
+  color: var(--etihad-gold);
+  font-weight: 500;
+}
+
+.features--etihad .feature-flip__back-detail {
+  color: var(--etihad-text-muted-on-dark);
+  font-weight: 300;
+}
+
+@media (hover: hover) {
+  .features--etihad .feature-flip:hover .feature-flip__face--front {
+    border-color: rgba(179, 142, 93, 0.35);
+    box-shadow: 0 8px 28px rgba(18, 30, 38, 0.35);
+  }
+
+  .features--etihad .feature-flip--green:hover .feature-flip__face--front {
+    border-color: rgba(179, 142, 93, 0.55);
+    box-shadow: 0 8px 28px rgba(179, 142, 93, 0.15);
+  }
+}
+
+/* Override legacy light-theme feature rules */
+[data-theme="light"] .features--etihad {
+  background: var(--etihad-navy-900);
+}
+
+[data-theme="light"] .features--etihad .features__title {
+  color: var(--etihad-white);
+}
+
+[data-theme="light"] .features--etihad .features__title-accent {
+  color: var(--etihad-gold);
+  background: none;
+  -webkit-text-fill-color: currentColor;
+}
+
+[data-theme="light"] .features--etihad .features__subtitle {
+  color: var(--etihad-text-muted-on-dark);
+}
+
+[data-theme="light"] .features--etihad .feature-flip--cyan,
+[data-theme="light"] .features--etihad .feature-flip--green,
+[data-theme="light"] .features--etihad .feature-flip--purple,
+[data-theme="light"] .features--etihad .feature-flip--pink {
+  --flip-stat-color: var(--etihad-gold);
+}
+
+[data-theme="light"] .features--etihad .feature-flip__face--front {
+  background: var(--etihad-navy-700);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+[data-theme="light"] .features--etihad .feature-flip--green .feature-flip__face--front {
+  border-color: rgba(179, 142, 93, 0.45);
+}
+
+[data-theme="light"] .features--etihad .feature-flip--cyan .feature-flip__icon,
+[data-theme="light"] .features--etihad .feature-flip--cyan .feature-flip__back-icon,
+[data-theme="light"] .features--etihad .feature-flip--green .feature-flip__icon,
+[data-theme="light"] .features--etihad .feature-flip--green .feature-flip__back-icon,
+[data-theme="light"] .features--etihad .feature-flip--purple .feature-flip__icon,
+[data-theme="light"] .features--etihad .feature-flip--purple .feature-flip__back-icon,
+[data-theme="light"] .features--etihad .feature-flip--pink .feature-flip__icon,
+[data-theme="light"] .features--etihad .feature-flip--pink .feature-flip__back-icon {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(179, 142, 93, 0.35);
+  color: var(--etihad-gold-light);
+  box-shadow: none;
+}
+
+[data-theme="light"] .features--etihad .feature-flip__face--back {
+  --flip-accent: linear-gradient(135deg, var(--etihad-gold-dark) 0%, var(--etihad-gold) 100%);
+}
+
+[data-theme="light"] .features--etihad .feature-flip__title {
+  color: var(--etihad-white);
+}
+
+[data-theme="light"] .features--etihad .feature-flip__desc,
+[data-theme="light"] .features--etihad .feature-flip__back-detail {
+  color: var(--etihad-text-muted-on-dark);
+}
+
+@media (max-width: 1024px) {
+  .features--etihad .features__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .features--etihad {
+    padding: 56px 0 64px;
+  }
+
+  .features--etihad .features__grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .features--etihad .features__title {
+    font-size: 1.75rem;
+  }
+}

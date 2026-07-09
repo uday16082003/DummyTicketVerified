@@ -46,7 +46,7 @@ const TRIP_TYPES: { value: TripType; label: string }[] = [
   { value: "multi-trip", label: "Multi Trip" },
 ];
 
-export default function HeroSearchForm() {
+export default function HeroSearchForm({ className = "" }: { className?: string }) {
   const router = useRouter();
   const [bookingMode, setBookingMode] = useState<BookingMode>("flight");
   const [tripType, setTripType] = useState<TripType>("one-way");
@@ -78,7 +78,7 @@ export default function HeroSearchForm() {
   }
 
   return (
-    <form className="booking-form" onSubmit={handleSubmit}>
+    <form className={`booking-form${className ? ` ${className}` : ""}`} onSubmit={handleSubmit}>
       <fieldset className="booking-form__modes">
         <legend className="sr-only">Booking type</legend>
         {BOOKING_MODES.map((mode) => (

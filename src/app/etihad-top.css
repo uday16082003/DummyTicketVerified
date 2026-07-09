@@ -1,0 +1,593 @@
+/* ═══════════════════════════════════════════
+   Etihad-inspired theme — top section (nav + hero)
+   ═══════════════════════════════════════════ */
+
+:root {
+  --etihad-navy-900: #121e26;
+  --etihad-navy-800: #1c2b33;
+  --etihad-navy-700: #253746;
+  --etihad-navy-600: #2f4554;
+  --etihad-gold: #b38e5d;
+  --etihad-gold-dark: #9a7850;
+  --etihad-gold-light: #d4b896;
+  --etihad-cream: #f9f7f2;
+  --etihad-white: #ffffff;
+  --etihad-text-on-dark: #ffffff;
+  --etihad-text-muted-on-dark: #b8c5ce;
+  --etihad-line-on-dark: rgba(179, 142, 93, 0.22);
+}
+
+/* ── Navigation ── */
+.nav--etihad {
+  background: transparent;
+  border-bottom: 1px solid transparent;
+}
+
+.nav--etihad.nav--scrolled,
+.nav--etihad {
+  background: var(--etihad-navy-800);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px rgba(18, 30, 38, 0.28);
+}
+
+.nav--etihad .nav__links a {
+  color: var(--etihad-text-muted-on-dark);
+  font-weight: 400;
+  font-size: 0.9375rem;
+  letter-spacing: 0.01em;
+}
+
+.nav--etihad .nav__links a:hover {
+  color: var(--etihad-white);
+}
+
+.nav--etihad .logo__title-primary,
+.nav--etihad .logo__title-accent,
+.nav--etihad .logo__subtitle-text {
+  color: var(--etihad-white);
+}
+
+.nav--etihad .logo__subtitle-line {
+  background: var(--etihad-gold);
+  opacity: 1;
+}
+
+.nav--etihad .theme-toggle {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.14);
+  color: var(--etihad-text-muted-on-dark);
+}
+
+.nav--etihad .theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--etihad-white);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.nav--etihad .btn--ghost {
+  color: var(--etihad-text-muted-on-dark);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.nav--etihad .btn--ghost:hover {
+  color: var(--etihad-white);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.nav--etihad .btn--nav-cta {
+  background: var(--etihad-gold);
+  color: var(--etihad-white);
+  border-radius: 100px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  box-shadow: none;
+}
+
+.nav--etihad .btn--nav-cta:hover {
+  background: var(--etihad-gold-dark);
+  opacity: 1;
+  transform: none;
+}
+
+.nav--etihad .nav__burger span {
+  background: var(--etihad-white);
+}
+
+.nav--etihad .nav__mobile {
+  background: var(--etihad-navy-800);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.nav--etihad .nav__mobile a {
+  color: var(--etihad-text-muted-on-dark);
+}
+
+.nav--etihad .nav__mobile a:hover {
+  color: var(--etihad-white);
+}
+
+/* ── Hero section ── */
+.hero--etihad {
+  background: var(--etihad-navy-800);
+  color: var(--etihad-text-on-dark);
+  position: relative;
+  isolation: isolate;
+}
+
+.hero--etihad::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(135deg, rgba(18, 30, 38, 0.35) 0%, transparent 45%),
+    linear-gradient(225deg, rgba(37, 55, 70, 0.5) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(179, 142, 93, 0.08) 0%, transparent 55%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero--etihad::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(
+      62deg,
+      transparent,
+      transparent 48px,
+      var(--etihad-line-on-dark) 48px,
+      var(--etihad-line-on-dark) 49px
+    ),
+    repeating-linear-gradient(
+      -28deg,
+      transparent,
+      transparent 72px,
+      rgba(179, 142, 93, 0.1) 72px,
+      rgba(179, 142, 93, 0.1) 73px
+    );
+  opacity: 0.55;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero--etihad .hero__inner {
+  padding-top: 56px;
+  padding-bottom: 72px;
+}
+
+.hero--etihad .hero__pill--status {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(179, 142, 93, 0.45);
+  color: var(--etihad-gold-light);
+}
+
+.hero--etihad .hero__pill--status svg {
+  color: var(--etihad-gold);
+}
+
+.hero--etihad .hero__pill-border {
+  position: relative;
+  display: inline-flex;
+  padding: 1px;
+  border-radius: 100px;
+  overflow: hidden;
+  isolation: isolate;
+  background: none;
+  box-shadow: none;
+}
+
+.hero--etihad .hero__pill-border::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 220%;
+  height: 220%;
+  transform: translate(-50%, -50%) rotate(0deg);
+  background: conic-gradient(
+    transparent 0deg,
+    transparent 82deg,
+    #b38e5d 88deg,
+    #d4b896 94deg,
+    #ffffff 100deg,
+    #d4b896 106deg,
+    #b38e5d 112deg,
+    transparent 118deg,
+    transparent 360deg
+  );
+  animation: pillBorderRun 2.5s linear infinite;
+  z-index: 0;
+}
+
+.hero--etihad .hero__pill--promo {
+  position: relative;
+  z-index: 1;
+  background: var(--etihad-navy-800);
+  border: none;
+  color: var(--etihad-gold-light);
+}
+
+.hero--etihad .hero__title {
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  color: var(--etihad-white);
+  line-height: 1.12;
+}
+
+.hero--etihad .hero__title-accent {
+  color: var(--etihad-gold);
+  background: none;
+  -webkit-text-fill-color: currentColor;
+  font-weight: 500;
+}
+
+.hero--etihad .hero__subtitle {
+  color: var(--etihad-text-muted-on-dark);
+  font-weight: 300;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+}
+
+.hero--etihad .hero__cta-border {
+  background: none;
+  animation: none;
+  box-shadow: none;
+  padding: 0;
+  border-radius: 0;
+}
+
+.hero--etihad .hero__cta-main.btn--white {
+  background: var(--etihad-gold);
+  color: var(--etihad-white);
+  border-radius: 100px;
+  box-shadow: 0 8px 24px rgba(179, 142, 93, 0.28);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.hero--etihad .hero__cta-main.btn--white:hover {
+  background: var(--etihad-gold-dark);
+  opacity: 1;
+  transform: translateY(-1px);
+  box-shadow: 0 12px 28px rgba(179, 142, 93, 0.34);
+}
+
+.hero--etihad .hero__highlight {
+  color: var(--etihad-text-muted-on-dark);
+  font-weight: 400;
+}
+
+.hero--etihad a.hero__highlight:hover {
+  color: var(--etihad-gold-light);
+}
+
+.hero--etihad .hero__highlight-icon {
+  color: var(--etihad-gold);
+}
+
+/* ── Hero booking card (Etihad widget) ── */
+.hero-booking-card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  background: var(--etihad-white);
+  border-radius: 20px;
+  box-shadow:
+    0 24px 64px rgba(18, 30, 38, 0.28),
+    0 8px 24px rgba(18, 30, 38, 0.12);
+  overflow: visible;
+}
+
+.hero-booking-card__head {
+  padding: 28px 28px 0;
+}
+
+.hero-booking-card__title {
+  font-size: 1.375rem;
+  font-weight: 500;
+  color: var(--etihad-navy-800);
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.hero-booking-card__subtitle {
+  margin: 6px 0 0;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: #64748b;
+}
+
+.hero--etihad .booking-form--etihad {
+  padding: 22px 28px 28px;
+  gap: 22px;
+  overflow: visible;
+}
+
+.hero--etihad .booking-form--etihad .booking-form__modes {
+  gap: 8px;
+}
+
+.hero--etihad .booking-form--etihad .booking-form__mode > span {
+  min-height: 44px;
+  flex-direction: row;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 100px;
+  background: var(--etihad-white);
+  border: 1px solid #d8dee6;
+  color: var(--etihad-navy-700);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.hero--etihad .booking-form--etihad .booking-form__mode input:checked + span {
+  background: var(--etihad-navy-800);
+  border-color: var(--etihad-navy-800);
+  color: var(--etihad-white);
+  box-shadow: none;
+}
+
+.hero--etihad .booking-form--etihad .booking-form__mode:hover > span {
+  border-color: #b8c5ce;
+  color: var(--etihad-navy-800);
+}
+
+.hero--etihad .booking-form--etihad .booking-form__mode input:checked:hover + span {
+  color: var(--etihad-white);
+}
+
+.hero--etihad .booking-form--etihad .booking-form__section-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--etihad-navy-700);
+  margin-bottom: 10px;
+}
+
+.hero--etihad .booking-form--etihad .booking-form__trip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0;
+  background: none;
+  border: none;
+}
+
+.hero--etihad .booking-form--etihad .booking-form__trip-option span {
+  padding: 10px 18px;
+  border-radius: 100px;
+  border: 1px solid #d8dee6;
+  background: var(--etihad-white);
+  color: var(--etihad-navy-700);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.hero--etihad .booking-form--etihad .booking-form__trip-option input:checked + span {
+  background: var(--etihad-navy-800);
+  border-color: var(--etihad-navy-800);
+  color: var(--etihad-white);
+}
+
+.hero--etihad .booking-form--etihad .booking-form__label {
+  color: var(--etihad-navy-700);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.hero--etihad .booking-form--etihad .booking-form__input-wrap input,
+.hero--etihad .booking-form--etihad .booking-form__input-wrap select {
+  border: 1px solid #d8dee6;
+  border-radius: 12px;
+  background: #f8fafb;
+  color: var(--etihad-navy-800);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  padding: 14px 16px 14px 44px;
+}
+
+.hero--etihad .booking-form--etihad .booking-form__input-wrap input::placeholder {
+  color: #94a3b8;
+  font-weight: 400;
+}
+
+.hero--etihad .booking-form--etihad .booking-form__input-wrap input:focus,
+.hero--etihad .booking-form--etihad .booking-form__input-wrap select:focus {
+  border-color: var(--etihad-gold);
+  box-shadow: 0 0 0 3px rgba(179, 142, 93, 0.18);
+  background: var(--etihad-white);
+  outline: none;
+}
+
+.hero--etihad .booking-form--etihad .booking-form__input-wrap--date .booking-form__date-input {
+  padding-right: 44px;
+  padding-left: 44px;
+}
+
+.hero--etihad .booking-form--etihad .booking-form__field > .booking-form__input-wrap:not(:has(.booking-form__input-icon)) > input {
+  padding: 14px 16px;
+}
+
+.hero--etihad .booking-form--etihad .booking-form__input-icon {
+  left: 14px;
+  color: var(--etihad-gold-dark);
+  z-index: 2;
+}
+
+.hero--etihad .booking-form--etihad .booking-form__date-trigger {
+  background: rgba(179, 142, 93, 0.12);
+  color: var(--etihad-gold-dark);
+}
+
+.hero--etihad .booking-form--etihad .booking-form__date-trigger:hover {
+  background: rgba(179, 142, 93, 0.2);
+  color: var(--etihad-navy-800);
+}
+
+.hero--etihad .booking-form--etihad .booking-form__submit {
+  background: var(--etihad-gold);
+  color: var(--etihad-white);
+  border-radius: 100px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  box-shadow: 0 8px 24px rgba(179, 142, 93, 0.28);
+  margin-top: 4px;
+}
+
+.hero--etihad .booking-form--etihad .booking-form__submit:hover {
+  background: var(--etihad-gold-dark);
+  box-shadow: 0 12px 28px rgba(179, 142, 93, 0.34);
+}
+
+.hero--etihad .booking-form--etihad .booking-form__suggestions {
+  border-color: #d8dee6;
+  background: var(--etihad-white);
+  box-shadow: 0 12px 32px rgba(18, 30, 38, 0.14);
+}
+
+.hero--etihad .booking-form--etihad .booking-form__suggestion-code {
+  color: var(--etihad-gold-dark);
+}
+
+.hero--etihad .booking-form--etihad .booking-form__suggestion:hover,
+.hero--etihad .booking-form--etihad .booking-form__suggestion.is-active {
+  background: rgba(179, 142, 93, 0.08);
+}
+
+@media (max-width: 1024px) {
+  .hero--etihad .hero__inner {
+    gap: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero--etihad .hero__inner {
+    padding-top: 32px;
+    padding-bottom: 48px;
+  }
+
+  .hero-booking-card__head,
+  .hero--etihad .booking-form--etihad {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .hero--etihad .booking-form--etihad .booking-form__modes {
+    flex-direction: column;
+  }
+}
+
+/* Override legacy light-theme hero rules */
+[data-theme="light"] .hero--etihad {
+  background: var(--etihad-navy-800);
+  color: var(--etihad-text-on-dark);
+}
+
+[data-theme="light"] .hero--etihad .hero__title {
+  color: var(--etihad-white);
+}
+
+[data-theme="light"] .hero--etihad .hero__title-accent {
+  color: var(--etihad-gold);
+  background: none;
+  -webkit-text-fill-color: currentColor;
+}
+
+[data-theme="light"] .hero--etihad .hero__subtitle {
+  color: var(--etihad-text-muted-on-dark);
+}
+
+[data-theme="light"] .hero--etihad .hero__pill--status {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(179, 142, 93, 0.45);
+  color: var(--etihad-gold-light);
+  box-shadow: none;
+}
+
+[data-theme="light"] .hero--etihad .hero__pill--status svg {
+  color: var(--etihad-gold);
+}
+
+[data-theme="light"] .hero--etihad .hero__pill-border {
+  box-shadow: 0 2px 14px rgba(179, 142, 93, 0.18);
+}
+
+[data-theme="light"] .hero--etihad .hero__pill--promo {
+  background: var(--etihad-navy-800);
+  border: none;
+  color: var(--etihad-gold-light);
+  box-shadow: none;
+}
+
+[data-theme="light"] .hero--etihad .hero__cta-main.btn--white {
+  background: var(--etihad-gold);
+  color: var(--etihad-white);
+  box-shadow: 0 8px 24px rgba(179, 142, 93, 0.28);
+}
+
+[data-theme="light"] .hero--etihad .hero__cta-main.btn--white:hover {
+  background: var(--etihad-gold-dark);
+  box-shadow: 0 12px 28px rgba(179, 142, 93, 0.34);
+  filter: none;
+}
+
+[data-theme="light"] .hero--etihad .hero__highlight-icon {
+  color: var(--etihad-gold);
+}
+
+[data-theme="light"] .hero--etihad a.hero__highlight:hover {
+  color: var(--etihad-gold-light);
+}
+
+[data-theme="light"] .nav--etihad.nav--scrolled,
+[data-theme="light"] .nav--etihad {
+  background: var(--etihad-navy-800);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px rgba(18, 30, 38, 0.28);
+}
+
+[data-theme="light"] .nav--etihad .btn--nav-cta {
+  background: var(--etihad-gold);
+  color: var(--etihad-white);
+  box-shadow: none;
+}
+
+[data-theme="light"] .nav--etihad .btn--nav-cta:hover {
+  background: var(--etihad-gold-dark);
+  filter: none;
+}
+
+[data-theme="light"] .hero--etihad .booking-form--etihad .booking-form__mode > span {
+  background: var(--etihad-white);
+  border-color: #d8dee6;
+  color: var(--etihad-navy-700);
+}
+
+[data-theme="light"] .hero--etihad .booking-form--etihad .booking-form__mode input:checked + span {
+  background: var(--etihad-navy-800);
+  border-color: var(--etihad-navy-800);
+  color: var(--etihad-white);
+  box-shadow: none;
+}
+
+[data-theme="light"] .hero--etihad .booking-form--etihad .booking-form__label {
+  color: var(--etihad-navy-700);
+}
+
+[data-theme="light"] .hero--etihad .booking-form--etihad .booking-form__submit {
+  background: var(--etihad-gold);
+  color: var(--etihad-white);
+  box-shadow: 0 8px 24px rgba(179, 142, 93, 0.28);
+}
+
+[data-theme="light"] .hero--etihad .booking-form--etihad .booking-form__submit:hover {
+  background: var(--etihad-gold-dark);
+  box-shadow: 0 12px 28px rgba(179, 142, 93, 0.34);
+}
+

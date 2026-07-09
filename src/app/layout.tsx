@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
-import { Source_Sans_3 } from "next/font/google";
+import { Jost } from "next/font/google";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import "./globals.css";
+import "./etihad-top.css";
+import "./etihad-features.css";
+import "./etihad-theme.css";
 
-const sourceSans = Source_Sans_3({
+const jost = Jost({
   subsets: ["latin"],
-  variable: "--font-source-sans",
+  variable: "--font-jost",
   display: "swap",
   weight: ["300", "400", "500", "600", "700"],
-  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
@@ -27,11 +29,11 @@ export default function RootLayout({
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('theme');if(!t)t=matchMedia('(prefers-color-scheme:light)').matches?'light':'dark';document.documentElement.setAttribute('data-theme',t)}catch(e){document.documentElement.setAttribute('data-theme','dark')}})();`,
+            __html: `(function(){try{var t=localStorage.getItem('theme');if(!t)t='light';document.documentElement.setAttribute('data-theme',t)}catch(e){document.documentElement.setAttribute('data-theme','light')}})();`,
           }}
         />
       </head>
-      <body className={sourceSans.variable}>
+      <body className={jost.variable}>
         <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>

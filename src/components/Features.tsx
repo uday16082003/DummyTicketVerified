@@ -64,7 +64,7 @@ const FEATURES = [
 
 export default function Features() {
   return (
-    <section className="features" id="features" aria-labelledby="features-heading">
+    <section className="features features--etihad" id="features" aria-labelledby="features-heading">
       <div className="container">
         <header className="features__header reveal">
           <h2 id="features-heading" className="features__title">

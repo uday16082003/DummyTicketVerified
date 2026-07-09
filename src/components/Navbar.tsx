@@ -37,7 +37,7 @@ export default function Navbar() {
   const closeMobile = () => setMobileOpen(false);
 
   return (
-    <header className={`nav${scrolled ? " nav--scrolled" : ""}`} id="nav">
+    <header className={`nav nav--etihad${scrolled ? " nav--scrolled" : ""}`} id="nav">
       <div className="container nav__inner">
         <Link href="/" className="nav__logo">
           <Logo />
