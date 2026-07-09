@@ -42,7 +42,7 @@ export default function DateInput({ id, value, onChange, required, min }: DateIn
   }
 
   return (
-    <span className="booking-form__input-wrap booking-form__input-wrap--date">
+    <span className="booking-form__input-wrap booking-form__input-wrap--date" onClick={openPicker}>
       <span className="booking-form__input-icon" aria-hidden="true">
         <CalendarIcon />
       </span>
@@ -54,17 +54,9 @@ export default function DateInput({ id, value, onChange, required, min }: DateIn
         value={value}
         min={min}
         onChange={(event) => onChange(event.target.value)}
+        onClick={openPicker}
         required={required}
       />
-      <button
-        type="button"
-        className="booking-form__date-trigger"
-        onClick={openPicker}
-        aria-label="Choose date"
-        tabIndex={-1}
-      >
-        <CalendarIcon />
-      </button>
     </span>
   );
 }

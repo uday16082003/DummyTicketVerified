@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Logo from "@/components/Logo";
-import { ThemeToggle } from "@/components/ThemeProvider";
 import { CTA_CONTACT } from "@/constants/cta-assets";
 
 const NAV_LINKS = [
@@ -52,7 +51,6 @@ export default function Navbar() {
         </nav>
 
         <div className="nav__actions">
-          <ThemeToggle />
           <a
             href={CTA_CONTACT.whatsappUrl}
             className="btn btn--ghost btn--sm nav__whatsapp"

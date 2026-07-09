@@ -1531,15 +1531,17 @@ a.hero__highlight:hover {
 }
 
 .booking-form__input-wrap--date .booking-form__date-input {
-  padding-right: 44px;
+  padding-right: 16px;
+  min-width: 0;
+  max-width: 100%;
   cursor: pointer;
 }
 
 .booking-form__input-wrap--date .booking-form__date-input::-webkit-calendar-picker-indicator {
   opacity: 0;
   position: absolute;
-  right: 0;
-  width: 44px;
+  inset: 0;
+  width: 100%;
   height: 100%;
   cursor: pointer;
 }
@@ -2014,11 +2016,13 @@ a.hero__highlight:hover {
   border-color: rgba(239, 68, 68, 0.28);
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .booking-form__row {
     grid-template-columns: 1fr;
   }
+}
 
+@media (max-width: 480px) {
   .booking-form__field--full {
     grid-column: auto;
   }

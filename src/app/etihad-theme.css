@@ -1118,14 +1118,10 @@ main > section::before {
   z-index: 2;
 }
 
-.order-checkout .booking-form__date-trigger {
-  background: rgba(179, 142, 93, 0.12);
-  color: var(--etihad-gold-dark);
-}
-
-.order-checkout .booking-form__date-trigger:hover {
-  background: rgba(179, 142, 93, 0.2);
-  color: var(--etihad-navy-800);
+.order-checkout .booking-form__input-wrap--date .booking-form__date-input {
+  padding-right: 16px;
+  min-width: 0;
+  max-width: 100%;
 }
 
 /* ── Passenger cards & actions ── */
