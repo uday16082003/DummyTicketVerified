@@ -67,8 +67,11 @@
     transparent 100%
   );
 
-  --font-sans:  var(--font-jost), "Jost", "Helvetica Neue", Arial, sans-serif;
-  --font-serif: var(--font-jost), "Jost", "Helvetica Neue", Arial, sans-serif;
+  --font-family-display: var(--font-display), Georgia, serif;
+  --font-family-body:    var(--font-body), system-ui, sans-serif;
+  --font-family-mono:    var(--font-mono), monospace;
+  --font-sans:           var(--font-family-body);
+  --font-serif:          var(--font-family-display);
   --container:  1200px;
   --nav-height: 72px;
   --radius-sm:  8px;
@@ -157,7 +160,7 @@ html {
 }
 
 body {
-  font-family: var(--font-sans);
+  font-family: var(--font-family-body);
   background: var(--color-bg);
   color: var(--color-text);
   font-weight: 400;
@@ -1156,7 +1159,7 @@ a.hero__highlight:hover {
   align-items: baseline;
   gap: 0;
   min-width: 0;
-  font-family: ui-monospace, 'SF Mono', 'Cascadia Code', monospace;
+  font-family: ui-monospace, var(--font-family-mono);
   font-size: 0.6875rem;
   line-height: 1.2;
   letter-spacing: -0.01em;
@@ -3477,7 +3480,7 @@ a.hero__highlight:hover {
   gap: 0;
   padding: 14px 16px;
   margin: 0;
-  font-family: ui-monospace, "Cascadia Code", "SF Mono", Menlo, monospace;
+  font-family: var(--font-family-mono);
   font-size: 0.8125rem;
   line-height: 1.4;
 }
@@ -5158,14 +5161,15 @@ a.hero__highlight:hover {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(260px, 0.75fr);
-  align-items: end;
-  gap: 12px;
+  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+  align-items: center;
+  gap: 40px;
   min-height: 360px;
+  padding: 48px;
 }
 
 .cta-banner__content {
-  padding: 48px 0 48px 48px;
+  padding: 0;
   max-width: 620px;
 }
 
@@ -5223,7 +5227,55 @@ a.hero__highlight:hover {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 28px 36px;
+  gap: 20px;
+}
+
+.cta-banner__aside {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  min-width: 0;
+}
+
+.cta-banner__contact {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  max-width: 340px;
+}
+
+.cta-banner__contact-label {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+  padding-left: 46px;
+}
+
+.cta-banner__contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cta-banner__contact-item {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.92);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.cta-banner__contact-text {
+  min-width: 0;
+  line-height: 1.4;
+  word-break: break-word;
 }
 
 .cta-banner__cta {
@@ -5261,37 +5313,6 @@ a.hero__highlight:hover {
 
 .cta-banner__cta:hover .cta-banner__cta-arrow {
   transform: translateX(4px);
-}
-
-.cta-banner__contact {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.cta-banner__contact-label {
-  font-size: 0.8125rem;
-  font-weight: 700;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.55);
-}
-
-.cta-banner__contact-links {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.cta-banner__contact-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 0.9375rem;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.92);
-  text-decoration: none;
-  transition: color 0.2s ease;
 }
 
 .cta-banner__contact-item:hover {
@@ -5355,12 +5376,26 @@ a.hero__highlight:hover {
 @media (max-width: 960px) {
   .cta-banner__body {
     grid-template-columns: 1fr;
+    gap: 32px;
     min-height: 0;
+    padding: 40px 32px;
   }
 
   .cta-banner__content {
-    padding: 40px 32px 0;
+    padding: 0;
     max-width: none;
+  }
+
+  .cta-banner__aside {
+    justify-content: flex-start;
+  }
+
+  .cta-banner__contact {
+    max-width: none;
+  }
+
+  .cta-banner__contact-label {
+    padding-left: 46px;
   }
 
   .cta-banner__visual {
@@ -5389,18 +5424,27 @@ a.hero__highlight:hover {
     border-radius: 22px;
   }
 
+  .cta-banner__body {
+    padding: 32px 24px;
+    gap: 28px;
+  }
+
   .cta-banner__content {
-    padding: 32px 24px 0;
+    padding: 0;
   }
 
   .cta-banner__actions {
     flex-direction: column;
     align-items: stretch;
-    gap: 24px;
+    gap: 20px;
   }
 
   .cta-banner__cta {
     justify-content: center;
+  }
+
+  .cta-banner__contact-label {
+    padding-left: 46px;
   }
 
   .cta-banner__visual {
@@ -6901,7 +6945,7 @@ a.site-footer__contact-item:hover {
   font-weight: 800;
   color: var(--color-text);
   letter-spacing: 0.03em;
-  font-family: "Courier New", monospace;
+  font-family: var(--font-family-mono);
   word-break: normal;
   overflow-wrap: break-word;
 }

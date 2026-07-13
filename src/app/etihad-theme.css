@@ -20,9 +20,9 @@
 
 [data-theme="light"] {
   --color-bg: var(--etihad-navy-900);
-  --color-text: var(--etihad-white);
-  --color-text-secondary: var(--etihad-text-muted-on-dark);
-  --color-muted: var(--etihad-text-muted-on-dark);
+  --color-text: #ffffff;
+  --color-text-secondary: rgba(255, 255, 255, 0.94);
+  --color-muted: rgba(255, 255, 255, 0.78);
   --color-blue: var(--etihad-navy-800);
   --color-blue-dark: var(--etihad-navy-900);
   --color-blue-light: var(--etihad-navy-700);
@@ -128,7 +128,7 @@ main > section::before {
   z-index: 1;
 }
 
-/* ── Etihad reference typography (thin white headings, muted body) ── */
+/* ── Etihad reference typography (thin white headings, bright body) ── */
 .features__header,
 .how-it-works__header,
 .booking-steps__header,
@@ -148,10 +148,11 @@ main > section::before {
 .reviews__title,
 .faq__title,
 .cta-banner__title {
-  font-weight: 300;
-  color: var(--etihad-white);
-  letter-spacing: -0.01em;
-  line-height: 1.25;
+  font-family: var(--font-family-body);
+  font-weight: 200;
+  color: #ffffff;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
 }
 
 .features__title-accent,
@@ -161,10 +162,10 @@ main > section::before {
 .reviews__title-accent,
 .faq__title-accent,
 .cta-banner__title-accent {
-  font-family: var(--font-sans);
+  font-family: var(--font-family-body);
   font-style: normal;
-  font-weight: 400;
-  color: var(--etihad-gold);
+  font-weight: 300;
+  color: var(--etihad-gold-light);
   background: none !important;
   -webkit-text-fill-color: currentColor !important;
 }
@@ -176,11 +177,12 @@ main > section::before {
 .reviews__subtitle,
 .faq__subtitle {
   font-weight: 300;
-  color: var(--etihad-text-muted-on-dark);
+  color: var(--etihad-text-bright-on-dark);
   text-align: left;
   margin-left: 0;
   max-width: 640px;
-  line-height: 1.7;
+  line-height: 1.8;
+  letter-spacing: 0.01em;
 }
 
 /* ── Buttons (site-wide) ── */
@@ -297,22 +299,24 @@ main > section::before {
 }
 
 .pricing__title {
-  font-weight: 300;
-  color: var(--etihad-white);
+  font-family: var(--font-family-body);
+  font-weight: 200;
+  color: #ffffff;
 }
 
 .pricing__title-accent {
-  font-family: var(--font-sans);
+  font-family: var(--font-family-body);
   font-style: normal;
-  font-weight: 500;
-  color: var(--etihad-gold);
+  font-weight: 300;
+  color: var(--etihad-gold-light);
   background: none;
   -webkit-text-fill-color: currentColor;
 }
 
 .pricing__subtitle {
-  color: var(--etihad-text-muted-on-dark);
+  color: var(--etihad-text-bright-on-dark);
   font-weight: 300;
+  line-height: 1.8;
 }
 
 .pricing-card {
@@ -429,16 +433,17 @@ main > section::before {
 }
 
 .guide__title {
-  font-weight: 300;
-  color: var(--etihad-white);
-  letter-spacing: -0.01em;
+  font-family: var(--font-family-body);
+  font-weight: 200;
+  color: #ffffff;
+  letter-spacing: -0.015em;
 }
 
 .guide__title-accent {
-  font-family: var(--font-sans);
+  font-family: var(--font-family-body);
   font-style: normal;
-  font-weight: 400;
-  color: var(--etihad-gold);
+  font-weight: 300;
+  color: var(--etihad-gold-light);
   background: none !important;
   -webkit-text-fill-color: currentColor !important;
 }
@@ -448,7 +453,8 @@ main > section::before {
   margin: 0 auto;
   max-width: 480px;
   font-weight: 300;
-  color: var(--etihad-text-muted-on-dark);
+  color: var(--etihad-text-bright-on-dark);
+  line-height: 1.8;
 }
 
 /* Sidebar + main content grid */
@@ -803,7 +809,7 @@ main > section::before {
 }
 
 .faq__title-accent {
-  font-family: var(--font-sans);
+  font-family: var(--font-family-display);
   font-style: normal;
   font-weight: 500;
   color: var(--etihad-gold);
@@ -847,16 +853,126 @@ main > section::before {
   color: var(--etihad-gold);
 }
 
-/* ═══ CTA BANNER — navy blue ═══ */
+/* ═══ CTA BANNER — Etihad navy/gold ═══ */
 .cta-banner {
   background-color: var(--etihad-navy-900);
   padding-bottom: 96px;
 }
 
 .cta-banner__card {
-  background: var(--etihad-navy-700);
+  background-color: var(--etihad-navy-700);
+  background-image:
+    repeating-linear-gradient(
+      62deg,
+      transparent,
+      transparent 48px,
+      rgba(179, 142, 93, 0.1) 48px,
+      rgba(179, 142, 93, 0.1) 49px
+    ),
+    repeating-linear-gradient(
+      -28deg,
+      transparent,
+      transparent 72px,
+      rgba(179, 142, 93, 0.05) 72px,
+      rgba(179, 142, 93, 0.05) 73px
+    ),
+    radial-gradient(ellipse at 80% 20%, rgba(179, 142, 93, 0.08) 0%, transparent 55%);
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 24px 64px rgba(0, 0, 0, 0.28);
+}
+
+.cta-banner__orb--1 {
+  background: rgba(179, 142, 93, 0.14);
+}
+
+.cta-banner__orb--2 {
+  background: rgba(179, 142, 93, 0.08);
+}
+
+.cta-banner__grid {
+  opacity: 0.2;
+  background-image: radial-gradient(rgba(179, 142, 93, 0.25) 1px, transparent 1px);
+}
+
+.cta-banner__wave {
+  color: rgba(179, 142, 93, 0.06);
+}
+
+.cta-banner__eyebrow {
+  font-family: var(--font-family-body);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--etihad-gold-light);
+}
+
+.cta-banner__eyebrow-dot {
+  background: var(--etihad-gold);
+  box-shadow: 0 0 0 4px rgba(179, 142, 93, 0.22);
+}
+
+.cta-banner__title {
+  font-family: var(--font-family-body);
+  font-weight: 200;
+  letter-spacing: -0.015em;
+  color: #ffffff;
+}
+
+.cta-banner__title-accent {
+  font-family: var(--font-family-body);
+  font-style: normal;
+  font-weight: 300;
+  color: var(--etihad-gold-light);
+}
+
+.cta-banner__subtitle {
+  font-family: var(--font-family-body);
+  font-weight: 300;
+  color: var(--etihad-text-bright-on-dark);
+  line-height: 1.8;
+}
+
+.cta-banner__cta {
+  background: var(--etihad-gold);
+  color: var(--etihad-white);
+  font-family: var(--font-family-body);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  box-shadow: 0 8px 24px rgba(179, 142, 93, 0.28);
+}
+
+.cta-banner__cta:hover {
+  background: var(--etihad-gold-dark);
+  color: var(--etihad-white);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(179, 142, 93, 0.34);
+}
+
+.cta-banner__contact-label {
+  font-family: var(--font-family-body);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.65);
+  padding-left: 46px;
+}
+
+.cta-banner__aside {
+  justify-content: flex-end;
+}
+
+.cta-banner__contact-item {
+  font-family: var(--font-family-body);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.94);
+}
+
+.cta-banner__contact-item:hover {
+  color: var(--etihad-gold-light);
+}
+
+.cta-banner__contact-icon {
+  background: rgba(179, 142, 93, 0.12);
+  border-color: rgba(179, 142, 93, 0.25);
+  color: var(--etihad-gold-light);
 }
 
 [data-theme="light"] .cta-banner,
@@ -1187,6 +1303,19 @@ main > section::before {
   box-shadow: 0 12px 32px rgba(18, 30, 38, 0.14);
 }
 
+.order-checkout .booking-form__suggestion-main strong {
+  color: var(--etihad-navy-800);
+  font-weight: 600;
+}
+
+.order-checkout .booking-form__suggestion-main span {
+  color: #64748b;
+}
+
+.order-checkout .booking-form__suggestion-code {
+  color: var(--etihad-gold-dark);
+}
+
 .order-checkout .booking-form__suggestion:hover,
 .order-checkout .booking-form__suggestion.is-active {
   background: var(--etihad-cream);
@@ -1241,14 +1370,16 @@ main > section::before {
 }
 
 .order-sidebar__title {
-  color: var(--etihad-white);
+  font-family: var(--font-family-body);
+  font-weight: 200;
+  color: #ffffff;
 }
 
 .order-sidebar__title-accent {
-  font-family: var(--font-sans);
+  font-family: var(--font-family-body);
   font-style: normal;
-  font-weight: 400;
-  color: var(--etihad-gold);
+  font-weight: 300;
+  color: var(--etihad-gold-light);
   background: none !important;
   -webkit-text-fill-color: currentColor !important;
 }

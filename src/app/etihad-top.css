@@ -13,8 +13,13 @@
   --etihad-cream: #f9f7f2;
   --etihad-white: #ffffff;
   --etihad-text-on-dark: #ffffff;
-  --etihad-text-muted-on-dark: #b8c5ce;
+  --etihad-text-muted-on-dark: rgba(255, 255, 255, 0.78);
+  --etihad-text-bright-on-dark: rgba(255, 255, 255, 0.94);
   --etihad-line-on-dark: rgba(179, 142, 93, 0.22);
+}
+
+html {
+  text-rendering: optimizeLegibility;
 }
 
 /* ── Navigation ── */
@@ -31,10 +36,10 @@
 }
 
 .nav--etihad .nav__links a {
-  color: var(--etihad-text-muted-on-dark);
-  font-weight: 400;
+  color: var(--etihad-text-bright-on-dark);
+  font-weight: 300;
   font-size: 0.9375rem;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.02em;
 }
 
 .nav--etihad .nav__links a:hover {
@@ -209,24 +214,27 @@
 }
 
 .hero--etihad .hero__title {
-  font-weight: 300;
-  letter-spacing: -0.02em;
-  color: var(--etihad-white);
-  line-height: 1.12;
+  font-family: var(--font-family-body);
+  font-weight: 200;
+  letter-spacing: -0.015em;
+  color: #ffffff;
+  line-height: 1.1;
 }
 
 .hero--etihad .hero__title-accent {
-  color: var(--etihad-gold);
+  font-family: var(--font-family-body);
+  color: var(--etihad-gold-light);
   background: none;
   -webkit-text-fill-color: currentColor;
-  font-weight: 500;
+  font-weight: 300;
 }
 
 .hero--etihad .hero__subtitle {
-  color: var(--etihad-text-muted-on-dark);
+  color: #ffffff;
   font-weight: 300;
   font-size: 1.0625rem;
-  line-height: 1.7;
+  line-height: 1.8;
+  letter-spacing: 0.01em;
 }
 
 .hero--etihad .hero__cta-border {
@@ -451,6 +459,19 @@
   border-color: #d8dee6;
   background: var(--etihad-white);
   box-shadow: 0 12px 32px rgba(18, 30, 38, 0.14);
+}
+
+.hero--etihad .booking-form--etihad .booking-form__suggestion {
+  font-family: var(--font-family-body);
+}
+
+.hero--etihad .booking-form--etihad .booking-form__suggestion-main strong {
+  color: var(--etihad-navy-800);
+  font-weight: 600;
+}
+
+.hero--etihad .booking-form--etihad .booking-form__suggestion-main span {
+  color: #64748b;
 }
 
 .hero--etihad .booking-form--etihad .booking-form__suggestion-code {

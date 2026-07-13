@@ -1,15 +1,29 @@
 import type { Metadata } from "next";
-import { Jost } from "next/font/google";
+import { Cormorant_Garamond, JetBrains_Mono, Jost } from "next/font/google";
 import "./globals.css";
 import "./etihad-top.css";
 import "./etihad-features.css";
 import "./etihad-theme.css";
 
-const jost = Jost({
+const fontBody = Jost({
   subsets: ["latin"],
-  variable: "--font-jost",
+  variable: "--font-body",
   display: "swap",
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["200", "300", "400", "500", "600", "700"],
+});
+
+const fontDisplay = Cormorant_Garamond({
+  subsets: ["latin"],
+  variable: "--font-display",
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
+});
+
+const fontMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  display: "swap",
+  weight: ["400", "500"],
 });
 
 export const metadata: Metadata = {
@@ -25,7 +39,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" data-theme="light">
-      <body className={jost.variable}>{children}</body>
+      <body className={`${fontBody.variable} ${fontDisplay.variable} ${fontMono.variable}`}>
+        {children}
+      </body>
     </html>
   );
 }
