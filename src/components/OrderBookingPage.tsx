@@ -5,7 +5,7 @@ import { useMemo, useState } from "react";
 import OrderBookingForm from "@/components/OrderBookingForm";
 import OrderSummaryPanel from "@/components/OrderSummaryPanel";
 import PreviewWindowChrome from "@/components/PreviewWindowChrome";
-import { parseBookingDraft, type BookingDraft } from "@/lib/booking-draft";
+import { parseBookingDraft, isRouteStepComplete, type BookingDraft } from "@/lib/booking-draft";
 
 const DEFAULT_DRAFT: BookingDraft = {
   bookingMode: "flight",
@@ -18,6 +18,10 @@ export default function OrderBookingPage() {
     const parsed = parseBookingDraft(searchParams);
     return parsed ?? DEFAULT_DRAFT;
   }, [searchParams]);
+
+  const initialStep = useMemo(() => {
+    return isRouteStepComplete(initialDraft) ? 2 : 1;
+  }, [initialDraft]);
 
   const [draft, setDraft] = useState<BookingDraft>(initialDraft);
   const [passengerCount, setPassengerCount] = useState(1);
@@ -33,6 +37,7 @@ export default function OrderBookingPage() {
                 <PreviewWindowChrome />
                 <OrderBookingForm
                   initialDraft={initialDraft}
+                  initialStep={initialStep}
                   onDraftChange={setDraft}
                   passengerCount={passengerCount}
                   onPassengerCountChange={setPassengerCount}

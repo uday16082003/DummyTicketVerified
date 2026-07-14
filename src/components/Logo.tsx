@@ -8,10 +8,10 @@ export default function Logo({ className = "" }: LogoProps) {
   return (
     <span className={`logo${className ? ` ${className}` : ""}`}>
       <Image
-        src="/dummy-logo-icon.png"
+        src="/onlylogodummy.png"
         alt=""
-        width={44}
-        height={40}
+        width={1024}
+        height={1024}
         priority
         className="logo__icon"
       />

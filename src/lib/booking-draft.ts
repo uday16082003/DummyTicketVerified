@@ -49,6 +49,22 @@ export function parseBookingDraft(params: URLSearchParams): BookingDraft | null 
   };
 }
 
+export function isRouteStepComplete(draft: BookingDraft): boolean {
+  const showFlight = draft.bookingMode === "flight" || draft.bookingMode === "flight-hotel";
+  const showHotel = draft.bookingMode === "hotel" || draft.bookingMode === "flight-hotel";
+
+  if (showFlight) {
+    if (!draft.from?.trim() || !draft.to?.trim() || !draft.departure) return false;
+    if (draft.tripType === "round-trip" && !draft.returnDate) return false;
+  }
+
+  if (showHotel) {
+    if (!draft.city?.trim() || !draft.checkIn || !draft.checkOut) return false;
+  }
+
+  return showFlight || showHotel;
+}
+
 export function formatDisplayDate(value?: string): string {
   if (!value) return "";
   const date = new Date(`${value}T00:00:00`);

@@ -47,14 +47,22 @@ html {
 }
 
 .nav--etihad .logo__title-primary,
-.nav--etihad .logo__title-accent,
 .nav--etihad .logo__subtitle-text {
   color: var(--etihad-white);
+}
+
+.nav--etihad .logo__title-accent {
+  color: var(--etihad-gold-light);
 }
 
 .nav--etihad .logo__subtitle-line {
   background: var(--etihad-gold);
   opacity: 1;
+}
+
+.nav--etihad .nav__logo .logo__icon {
+  width: 52px;
+  height: 52px;
 }
 
 .nav--etihad .theme-toggle {
@@ -78,6 +86,18 @@ html {
   color: var(--etihad-white);
   background: rgba(255, 255, 255, 0.08);
   border-color: rgba(255, 255, 255, 0.2);
+}
+
+.nav--etihad .nav__home {
+  color: var(--etihad-text-bright-on-dark);
+  border-color: rgba(255, 255, 255, 0.14);
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.nav--etihad .nav__home:hover {
+  color: var(--etihad-white);
+  border-color: rgba(179, 142, 93, 0.35);
 }
 
 .nav--etihad .btn--nav-cta {

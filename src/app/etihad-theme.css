@@ -133,8 +133,7 @@ main > section::before {
 .how-it-works__header,
 .booking-steps__header,
 .pricing__header,
-.reviews__header,
-.faq__header {
+.reviews__header {
   text-align: left;
   margin-left: 0;
   margin-right: auto;
@@ -146,7 +145,6 @@ main > section::before {
 .booking-steps__title,
 .pricing__title,
 .reviews__title,
-.faq__title,
 .cta-banner__title {
   font-family: var(--font-family-body);
   font-weight: 200;
@@ -160,7 +158,6 @@ main > section::before {
 .booking-steps__title-accent,
 .pricing__title-accent,
 .reviews__title-accent,
-.faq__title-accent,
 .cta-banner__title-accent {
   font-family: var(--font-family-body);
   font-style: normal;
@@ -174,8 +171,7 @@ main > section::before {
 .how-it-works__subtitle,
 .booking-steps__subtitle,
 .pricing__subtitle,
-.reviews__subtitle,
-.faq__subtitle {
+.reviews__subtitle {
   font-weight: 300;
   color: var(--etihad-text-bright-on-dark);
   text-align: left;
@@ -798,13 +794,52 @@ main > section::before {
   }
 }
 
-/* ═══ FAQ — navy blue ═══ */
+/* ═══ FAQ — 2-column accordion with flight animation ═══ */
 .faq {
-  background-color: var(--etihad-navy-800);
+  --faq-eyebrow-color: var(--etihad-gold-light);
+  --faq-title-color: var(--etihad-white);
+  --faq-accent-color: var(--etihad-gold);
+  --faq-subtitle-color: var(--etihad-text-muted-on-dark);
+  --faq-filter-border: rgba(179, 142, 93, 0.28);
+  --faq-filter-color: var(--etihad-text-muted-on-dark);
+  --faq-filter-active-bg: var(--etihad-gold);
+  --faq-filter-active-color: var(--etihad-white);
+  --faq-item-bg: var(--etihad-white);
+  --faq-item-border: rgba(28, 43, 51, 0.08);
+  --faq-item-shadow: 0 12px 32px rgba(0, 0, 0, 0.16);
+  --faq-item-hover-shadow: 0 16px 38px rgba(0, 0, 0, 0.2);
+  --faq-item-open-border: rgba(179, 142, 93, 0.42);
+  --faq-item-open-shadow: 0 18px 44px rgba(0, 0, 0, 0.22);
+  --faq-tag-bg: rgba(179, 142, 93, 0.12);
+  --faq-tag-color: var(--etihad-gold-dark);
+  --faq-question-color: var(--etihad-navy-800);
+  --faq-answer-color: #5b6b78;
+  --faq-chevron-bg: rgba(179, 142, 93, 0.12);
+  --faq-chevron-color: var(--etihad-gold-dark);
+  --faq-chevron-open-bg: var(--etihad-gold);
+  --faq-flight-bg: linear-gradient(135deg, var(--etihad-cream) 0%, #f3efe8 100%);
+  --faq-flight-border: rgba(179, 142, 93, 0.28);
+  --faq-flight-perf: rgba(179, 142, 93, 0.35);
+  --faq-flight-airport-color: #8a98a5;
+  --faq-flight-dash: rgba(179, 142, 93, 0.45);
+  --faq-flight-plane-color: var(--etihad-gold-dark);
+  --faq-flight-stamp-border: rgba(179, 142, 93, 0.5);
+  --faq-flight-stamp-color: var(--etihad-gold-dark);
+  --faq-help-bg: rgba(249, 247, 242, 0.96);
+  --faq-help-border: rgba(179, 142, 93, 0.22);
+  --faq-help-title-color: var(--etihad-navy-800);
+  --faq-help-text-color: #5b6b78;
+}
+
+.faq__header {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .faq__title {
-  font-weight: 300;
+  font-family: var(--font-family-body);
+  font-weight: 200;
   color: var(--etihad-white);
 }
 
@@ -816,38 +851,55 @@ main > section::before {
 }
 
 .faq__subtitle {
-  color: var(--etihad-text-muted-on-dark);
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
   font-weight: 300;
+  color: var(--etihad-text-muted-on-dark);
 }
 
-.faq-item__icon {
-  background: rgba(179, 142, 93, 0.2);
-  color: var(--etihad-gold-light);
-  border: 1px solid rgba(179, 142, 93, 0.35);
-}
-
-.faq-item__question {
+.faq__filter:hover {
+  border-color: var(--etihad-gold);
   color: var(--etihad-white);
 }
 
-.faq-item__answer {
-  color: var(--etihad-text-muted-on-dark);
+.faq__filter--active {
+  background: var(--etihad-gold);
+  border-color: var(--etihad-gold);
+  color: var(--etihad-white);
 }
 
-.faq-item__trigger:focus-visible {
-  outline-color: var(--etihad-gold);
+.faq-item__trigger:focus-visible,
+.faq__filter:focus-visible {
+  outline: 2px solid var(--etihad-gold);
+  outline-offset: 3px;
+}
+
+.faq__help .btn--ghost {
+  color: var(--etihad-navy-700);
+  border-color: #d8dee6;
+  background: var(--etihad-white);
+}
+
+.faq__help .btn--ghost:hover {
+  color: var(--etihad-navy-800);
+  border-color: var(--etihad-gold);
+  background: var(--etihad-cream);
+}
+
+.faq__help .btn--nav-cta {
+  background: var(--etihad-gold);
+  color: var(--etihad-white);
+}
+
+.faq__help .btn--nav-cta:hover {
+  background: var(--etihad-gold-dark);
 }
 
 .reviews-card__glow {
   background: radial-gradient(circle, rgba(179, 142, 93, 0.12) 0%, transparent 70%);
 }
 
-[data-theme="light"] .faq,
-[data-theme="dark"] .faq {
-  --faq-section-bg: var(--etihad-navy-900);
-  --faq-subtitle-color: var(--etihad-text-muted-on-dark);
-  --faq-icon-bg: rgba(179, 142, 93, 0.2);
-}
 
 .order-info__title-accent {
   color: var(--etihad-gold);
@@ -1268,6 +1320,31 @@ main > section::before {
   background: rgba(179, 142, 93, 0.12);
 }
 
+.order-checkout .booking-form__back {
+  color: var(--etihad-navy-700);
+  background: var(--etihad-cream);
+  border-color: #d8dee6;
+}
+
+.order-checkout .booking-form__back:hover {
+  background: var(--etihad-white);
+  border-color: var(--etihad-gold);
+  color: var(--etihad-navy-800);
+}
+
+.order-checkout .booking-form__route-recap {
+  border-bottom-color: #e8edf2;
+  color: var(--etihad-navy-700);
+}
+
+.order-checkout .booking-form__route-recap strong {
+  color: var(--etihad-navy-800);
+}
+
+.order-checkout .booking-form__route-recap-date {
+  color: #64748b;
+}
+
 .order-checkout .booking-form__section-action:hover,
 .order-checkout .booking-form__inline-action:hover {
   background: rgba(179, 142, 93, 0.2);
@@ -1524,11 +1601,6 @@ main > section::before {
   --reviews-card-bg: var(--etihad-navy-700);
   --reviews-card-border: rgba(255, 255, 255, 0.08);
   --reviews-card-bg-hover: var(--etihad-cream);
-}
-
-[data-theme="dark"] .faq,
-[data-theme="light"] .faq {
-  --faq-section-bg: var(--etihad-navy-800);
 }
 
 [data-theme="light"] body,

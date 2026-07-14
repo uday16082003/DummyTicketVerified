@@ -67,6 +67,7 @@ export const SAMPLE_TICKETS: SampleTicket[] = [
     accent: "#002f87",
     bgPosition: "0% 0%",
     planeImage: "/planes/egyptair.jpg",
+    pdfHref: "/samples/egyptairwaysdummy.pdf",
   },
   {
     id: "thai-airways",

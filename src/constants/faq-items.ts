@@ -1,99 +1,89 @@
+export type FaqCategory = "all" | "ordering" | "delivery" | "visa" | "pricing";
+
 export type FaqItem = {
   id: string;
+  category: Exclude<FaqCategory, "all">;
   question: string;
   answer: string;
 };
 
+export const FAQ_CATEGORIES: { id: FaqCategory; label: string }[] = [
+  { id: "all", label: "All" },
+  { id: "ordering", label: "How to Order" },
+  { id: "delivery", label: "Delivery & PNR" },
+  { id: "visa", label: "Visa Use" },
+  { id: "pricing", label: "Pricing" },
+];
+
 export const FAQ_ITEMS: FaqItem[] = [
   {
-    id: "legal",
-    question: "Is Dummy Flight Ticket Legal Or Illegal?",
+    id: "how-to-order",
+    category: "ordering",
+    question: "How do I order a dummy ticket on this website?",
     answer:
-      "A dummy flight ticket — also called a flight reservation or itinerary for visa purposes — is legal when used to show proof of travel plans to embassies or immigration. It is not a confirmed paid ticket. You must not use it to board a flight without purchasing a real ticket.",
+      "Enter your route and travel dates on the home page, then click Buy Dummy Ticket. You will land on the order page to add passenger details and contact info. Complete booking and your PDF is sent to your email and WhatsApp — usually within 10–20 minutes.",
   },
   {
-    id: "pnr-airline",
-    question: "Will PNR Show On The Airline Website?",
+    id: "services",
+    category: "ordering",
+    question: "What can I book on Dummy Ticket Verified?",
     answer:
-      "Yes. We provide reservations with a live PNR that can be verified on the airline’s official website for a limited period. This is what embassies and immigration officers check when they verify your travel plans.",
+      "Flight ticket only, hotel booking only, or a combined flight + hotel package. Choose one-way, round-trip, or multi-city for flights. Add extra passengers at checkout. Preview watermarked samples for major airlines in our Samples section before you order.",
   },
   {
-    id: "onward-meaning",
-    question: "What is Onward Ticket meaning?",
+    id: "delivery-time",
+    category: "delivery",
+    question: "How fast will I receive my dummy ticket?",
     answer:
-      "An onward ticket is proof that you plan to leave the country you are entering — for example, a flight out of Thailand or the Schengen area. Airlines and border officials often ask for it at check-in, even for visa-on-arrival travelers.",
-  },
-  {
-    id: "onward-vs-return",
-    question:
-      "What Is The Difference Between An Onward Flight Ticket And A Return Flight Ticket?",
-    answer:
-      "A return ticket shows you coming back to your home country. An onward ticket shows you leaving the destination for a third country — not necessarily returning home. Both can satisfy visa or immigration proof-of-travel requirements depending on the rules.",
-  },
-  {
-    id: "hotel-booking",
-    question: "What Is A Dummy Hotel Booking?",
-    answer:
-      "A dummy hotel booking is a temporary hotel reservation confirmation used for visa applications. It includes hotel name, dates, and a booking reference — similar to a flight reservation, but for accommodation.",
-  },
-  {
-    id: "hotel-why",
-    question: "Why Do I Need A Dummy Hotel Booking For Visa?",
-    answer:
-      "Many embassies — especially Schengen, UK, and Canada — require proof of where you will stay. A verifiable hotel reservation shows you have planned accommodation for your trip without paying for a non-refundable hotel upfront.",
-  },
-  {
-    id: "dummy-airlines",
-    question: "What Are Dummy Tickets Airlines?",
-    answer:
-      "Dummy ticket airlines are real airline carriers whose reservations we use for visa documentation — such as Air India, Emirates, British Airways, and others. The itinerary is formatted like a standard airline confirmation with a valid PNR.",
+      "Most orders are delivered within 10–20 minutes after you complete booking. We send the PDF to your email and WhatsApp so you can upload it to your visa portal or print it for your embassy appointment right away.",
   },
   {
     id: "format",
-    question: "In What Format Will I Receive The Dummy Ticket?",
+    category: "delivery",
+    question: "What format will I receive?",
     answer:
-      "You receive a PDF itinerary by email and WhatsApp, usually within 10–20 minutes. It looks like a standard airline e-ticket confirmation with passenger name, flight details, and PNR — ready to upload or print for your visa file.",
+      "A PDF itinerary that looks like a standard airline e-ticket confirmation — passenger name, flight numbers, route, dates, and PNR included. Your delivered ticket has the preview watermark removed; only the samples on our site are watermarked.",
   },
   {
-    id: "which-airline",
-    question: "Which Airline Dummy Ticket Will I Be Getting?",
+    id: "pnr-verify",
+    category: "delivery",
+    question: "Can the PNR be verified on the airline website?",
     answer:
-      "We issue reservations on major airlines that match your requested route. You can specify preferred carriers when ordering; we use real GDS-backed reservations that embassy staff and airline sites can verify.",
+      "Yes. We issue reservations with a live PNR that can be checked on the airline's official website for a limited period. This is the same verification embassies and immigration officers use when reviewing travel proof.",
   },
   {
-    id: "itinerary",
-    question: "What Is A Flight Itinerary?",
+    id: "schengen-visa",
+    category: "visa",
+    question: "Can I use this for Schengen, UK, or US visa applications?",
     answer:
-      "A flight itinerary is a document listing your planned flights — dates, times, airports, and flight numbers — without necessarily being a fully paid ticket. Embassies use it to confirm your travel dates align with your visa application.",
+      "Yes. Embassies commonly accept verifiable flight reservations as proof of travel plans. You do not need to purchase a fully paid ticket before your visa is approved — a genuine reservation with a live PNR is sufficient for most applications.",
   },
   {
-    id: "embassy-itinerary",
-    question: "Why Do Embassies Require A Flight Itinerary For Visa?",
+    id: "legal",
+    category: "visa",
+    question: "Is a dummy flight ticket legal for visa purposes?",
     answer:
-      "Embassies want to see that your trip dates, duration, and purpose are consistent. A flight itinerary proves when you intend to arrive and leave, helping them assess whether your visa request matches your travel plan.",
+      "Yes, when used as a temporary reservation for visa or immigration documentation. It is not a confirmed paid ticket and must not be used to board a flight without purchasing a real ticket afterward.",
   },
   {
-    id: "itinerary-meaning",
-    question: "What Is An Itinerary Meaning In Flight?",
+    id: "dummy-vs-confirmed",
+    category: "visa",
+    question: "What is the difference between a dummy ticket and a confirmed ticket?",
     answer:
-      "In aviation, an itinerary is the full schedule of your journey — all flight segments from origin to destination. For visa use, it means a reservation document showing those segments and a booking reference, not necessarily a purchased ticket.",
+      "A dummy ticket is a temporary reservation with a live PNR for visa paperwork. A confirmed ticket is fully paid and ticketed for travel. For embassy applications, a verifiable reservation is typically all you need until your visa is granted.",
   },
   {
-    id: "free-ticket",
-    question: "Is It Possible To Get A Dummy Ticket Free?",
+    id: "prices",
+    category: "pricing",
+    question: "What are your prices?",
     answer:
-      "Some sites offer free templates, but they usually lack a verifiable PNR and are often rejected by embassies or airlines. A small fee for a genuine, verifiable reservation is far safer for visa and immigration purposes.",
+      "Flight ticket: ₹500 / $6. Hotel booking: ₹300 / $4. Flight + hotel package: ₹700 / $8. Each additional passenger is ₹249 / $3. One-time payment with no hidden fees — instant delivery after you order.",
   },
   {
-    id: "schengen-same",
-    question: "Is a Dummy Ticket the Same as a Confirmed Flight Ticket for Schengen Visa?",
+    id: "airlines",
+    category: "ordering",
+    question: "Which airlines do you provide tickets for?",
     answer:
-      "No. A dummy ticket is a temporary flight reservation used only for visa application purposes. A confirmed ticket is fully paid and ticketed. Schengen embassies accept verifiable reservations — you do not need to buy a full ticket before your visa is approved.",
-  },
-  {
-    id: "schengen-verify",
-    question: "Can a Dummy Ticket Be Verified by the Schengen Embassy?",
-    answer:
-      "Yes. Schengen embassies can verify a dummy ticket if required. A genuine dummy ticket comes with a live PNR that appears on the airline’s system, which consular staff can check during application review.",
+      "Major carriers including Air India, British Airways, Emirates, Qatar Airways, Air Canada, KLM, EgyptAir, Thai Airways, and Garuda Indonesia. Your delivered ticket is prepared for your requested route on a suitable airline.",
   },
 ];

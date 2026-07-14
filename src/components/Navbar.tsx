@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import Logo from "@/components/Logo";
 import { CTA_CONTACT } from "@/constants/cta-assets";
 
@@ -23,6 +24,8 @@ function WhatsAppIcon() {
 }
 
 export default function Navbar() {
+  const pathname = usePathname();
+  const isOrderFlow = pathname.startsWith("/order");
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -43,6 +46,11 @@ export default function Navbar() {
         </Link>
 
         <nav className="nav__links" aria-label="Main navigation">
+          {isOrderFlow ? (
+            <Link href="/" className="btn btn--ghost btn--sm nav__home">
+              Home
+            </Link>
+          ) : null}
           {NAV_LINKS.map((link) => (
             <Link key={link.href} href={link.href}>
               {link.label}
@@ -60,9 +68,11 @@ export default function Navbar() {
             <WhatsAppIcon />
             WhatsApp
           </a>
-          <Link href="/order" className="btn btn--nav-cta btn--sm">
-            Order Now
-          </Link>
+          {!isOrderFlow ? (
+            <Link href="/order" className="btn btn--nav-cta btn--sm">
+              Order Now
+            </Link>
+          ) : null}
         </div>
 
         <button
@@ -81,6 +91,11 @@ export default function Navbar() {
         className={`nav__mobile${mobileOpen ? " is-open" : ""}`}
         aria-hidden={!mobileOpen}
       >
+        {isOrderFlow ? (
+          <Link href="/" className="nav__mobile-home" onClick={closeMobile}>
+            Home
+          </Link>
+        ) : null}
         {NAV_LINKS.map((link) => (
           <Link key={link.href} href={link.href} onClick={closeMobile}>
             {link.label}
@@ -98,9 +113,11 @@ export default function Navbar() {
             WhatsApp
           </a>
         </div>
-        <Link href="/order" className="btn btn--nav-cta" onClick={closeMobile}>
-          Order Now
-        </Link>
+        {!isOrderFlow ? (
+          <Link href="/order" className="btn btn--nav-cta" onClick={closeMobile}>
+            Order Now
+          </Link>
+        ) : null}
       </div>
     </header>
   );

@@ -13,6 +13,7 @@ import {
   formatMoney,
 } from "@/constants/booking-form";
 import type { BookingDraft } from "@/lib/booking-draft";
+import { formatDisplayDate } from "@/lib/booking-draft";
 import type { BookingMode, OrderApiResponse, PassengerTitle, TripType } from "@/types/order";
 
 const STEPS = [
@@ -73,6 +74,7 @@ function createPassenger(): PassengerFormState {
 
 type OrderBookingFormProps = {
   initialDraft: BookingDraft;
+  initialStep?: 1 | 2 | 3;
   onDraftChange: (draft: BookingDraft) => void;
   passengerCount: number;
   onPassengerCountChange: (count: number) => void;
@@ -80,12 +82,13 @@ type OrderBookingFormProps = {
 
 export default function OrderBookingForm({
   initialDraft,
+  initialStep = 1,
   onDraftChange,
   passengerCount,
   onPassengerCountChange,
 }: OrderBookingFormProps) {
   const router = useRouter();
-  const [step, setStep] = useState<1 | 2 | 3>(1);
+  const [step, setStep] = useState<1 | 2 | 3>(initialStep);
   const [draft, setDraft] = useState<BookingDraft>(initialDraft);
   const [passengers, setPassengers] = useState<PassengerFormState[]>([createPassenger()]);
   const [email, setEmail] = useState("");
@@ -98,6 +101,8 @@ export default function OrderBookingForm({
   const showHotel = draft.bookingMode === "hotel" || draft.bookingMode === "flight-hotel";
   const basePrice = BOOKING_BASE_PRICES[draft.bookingMode];
   const completedSteps = step - 1;
+  const hasFlightRoute = Boolean(draft.from?.trim() && draft.to?.trim() && draft.departure);
+  const hasHotelRoute = Boolean(draft.city?.trim() && draft.checkIn && draft.checkOut);
 
   function updateDraft(patch: Partial<BookingDraft>) {
     setDraft((current) => {
@@ -362,6 +367,34 @@ export default function OrderBookingForm({
 
       {step === 2 && (
         <div className="booking-form__step-panel" data-step="2">
+          {(hasFlightRoute || hasHotelRoute) && (
+            <div className="booking-form__route-recap" aria-label="Selected route">
+              {hasFlightRoute && (
+                <p>
+                  <strong>
+                    {draft.from} → {draft.to}
+                  </strong>
+                  <span className="booking-form__route-recap-date">
+                    {" "}
+                    · Departure {formatDisplayDate(draft.departure)}
+                    {draft.tripType === "round-trip" && draft.returnDate
+                      ? ` · Return ${formatDisplayDate(draft.returnDate)}`
+                      : ""}
+                  </span>
+                </p>
+              )}
+              {hasHotelRoute && (
+                <p>
+                  <strong>{draft.city}</strong>
+                  <span className="booking-form__route-recap-date">
+                    {" "}
+                    · {formatDisplayDate(draft.checkIn)} – {formatDisplayDate(draft.checkOut)}
+                  </span>
+                </p>
+              )}
+            </div>
+          )}
+
           <div className="booking-form__section-header">
             <h3 className="booking-form__section-title">
               Passengers ({passengers.length})
@@ -472,8 +505,8 @@ export default function OrderBookingForm({
           </div>
 
           <div className="booking-form__step-actions">
-            <button type="button" className="booking-form__section-action" onClick={goBack}>
-              Back
+            <button type="button" className="booking-form__back" onClick={goBack}>
+              Go Back
             </button>
             <button type="button" className="booking-form__submit" onClick={goNext}>
               <span className="booking-form__submit-text">
@@ -543,8 +576,8 @@ export default function OrderBookingForm({
           )}
 
           <div className="booking-form__step-actions">
-            <button type="button" className="booking-form__section-action" onClick={goBack}>
-              Back
+            <button type="button" className="booking-form__back" onClick={goBack}>
+              Go Back
             </button>
             <button type="submit" className="booking-form__submit" disabled={status === "loading"}>
               <span className="booking-form__submit-text">
