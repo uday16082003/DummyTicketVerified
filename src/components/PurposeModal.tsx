@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useId, useRef } from "react";
+import { useEffect, useId, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import PurposeIcon from "@/components/PurposeIcon";
 import {
   TICKET_PURPOSES,
@@ -27,6 +28,11 @@ export default function PurposeModal({
   const titleId = useId();
   const descriptionId = useId();
   const continueRef = useRef<HTMLButtonElement>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -53,9 +59,9 @@ export default function PurposeModal({
     }
   }, [isOpen, selectedId]);
 
-  if (!isOpen) return null;
+  if (!isOpen || !mounted) return null;
 
-  return (
+  return createPortal(
     <div className="purpose-modal" role="presentation">
       <button
         type="button"
@@ -145,6 +151,7 @@ export default function PurposeModal({
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

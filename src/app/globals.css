@@ -6124,7 +6124,8 @@ a.site-footer__contact-item:hover {
   position: relative;
   padding-top: var(--nav-height);
   background: var(--color-bg);
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: visible;
 }
 
 .order-page__ambient {
@@ -7521,9 +7522,12 @@ a.site-footer__contact-item:hover {
   inset: 0;
   z-index: 1200;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  padding: 24px 16px;
+  padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
   animation: purposeModalFadeIn 0.35s ease;
 }
 
@@ -7541,8 +7545,9 @@ a.site-footer__contact-item:hover {
   position: relative;
   z-index: 1;
   width: min(640px, 100%);
-  max-height: calc(100vh - 48px);
-  overflow: auto;
+  max-height: none;
+  margin: auto 0;
+  flex-shrink: 0;
   animation: purposePanelSlideIn 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -7914,12 +7919,36 @@ a.site-footer__contact-item:hover {
 }
 
 @media (max-width: 640px) {
+  .purpose-modal {
+    padding-top: max(12px, env(safe-area-inset-top));
+    padding-bottom: max(12px, env(safe-area-inset-bottom));
+  }
+
   .purpose-modal__panel {
-    padding: 26px 20px 22px;
+    padding: 24px 18px 20px;
+  }
+
+  .purpose-modal__header {
+    margin-bottom: 18px;
+  }
+
+  .purpose-modal__title {
+    font-size: 1.375rem;
+  }
+
+  .purpose-modal__lead {
+    font-size: 0.875rem;
+    line-height: 1.55;
   }
 
   .purpose-modal__options {
     grid-template-columns: 1fr;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  .purpose-modal__option {
+    padding: 12px 14px;
   }
 
   .purpose-modal__option-desc {
@@ -7933,6 +7962,29 @@ a.site-footer__contact-item:hover {
 
   .purpose-banner__change {
     margin-left: auto;
+  }
+}
+
+@media (max-height: 760px) {
+  .purpose-modal__panel {
+    padding: 22px 20px 20px;
+  }
+
+  .purpose-modal__header {
+    margin-bottom: 16px;
+  }
+
+  .purpose-modal__options {
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .purpose-modal__option {
+    padding: 11px 13px;
+  }
+
+  .purpose-modal__option-desc {
+    display: none;
   }
 }
 
