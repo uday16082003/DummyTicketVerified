@@ -1,3 +1,5 @@
+import type { TicketPurposeId } from "@/constants/ticket-purposes";
+
 export type BookingMode = "flight" | "hotel" | "flight-hotel";
 export type TripType = "one-way" | "round-trip" | "multi-trip";
 export type PassengerTitle = "Mr" | "Mrs" | "Ms" | "Miss" | "Dr" | "Mx";
@@ -15,6 +17,7 @@ export type OrderPayload = {
   phoneCountryCode: string;
   passengers: Passenger[];
   bookingMode: BookingMode;
+  purpose: TicketPurposeId;
   tripType?: TripType;
   includeHotel?: boolean;
   from?: string;

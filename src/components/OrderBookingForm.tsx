@@ -14,6 +14,7 @@ import {
 import type { BookingDraft } from "@/lib/booking-draft";
 import { formatDisplayDate } from "@/lib/booking-draft";
 import type { BookingMode, OrderApiResponse, PassengerTitle, TripType } from "@/types/order";
+import type { TicketPurposeId } from "@/constants/ticket-purposes";
 
 const STEPS = [
   { id: 1, label: "Route Details" },
@@ -74,6 +75,7 @@ function createPassenger(): PassengerFormState {
 type OrderBookingFormProps = {
   initialDraft: BookingDraft;
   initialStep?: 1 | 2 | 3;
+  purpose: TicketPurposeId | null;
   onDraftChange: (draft: BookingDraft) => void;
   passengerCount: number;
   onPassengerCountChange: (count: number) => void;
@@ -82,6 +84,7 @@ type OrderBookingFormProps = {
 export default function OrderBookingForm({
   initialDraft,
   initialStep = 1,
+  purpose,
   onDraftChange,
   passengerCount,
   onPassengerCountChange,
@@ -165,6 +168,11 @@ export default function OrderBookingForm({
       return;
     }
     if (!validateCurrentStep()) return;
+    if (!purpose) {
+      setFeedback("Please select your booking purpose to continue.");
+      setStatus("error");
+      return;
+    }
 
     setStatus("loading");
     setFeedback("");
@@ -174,6 +182,7 @@ export default function OrderBookingForm({
       phone: phone.trim(),
       phoneCountryCode,
       passengers,
+      purpose,
       bookingMode: draft.bookingMode,
       tripType: showFlight ? draft.tripType : undefined,
       from: showFlight ? draft.from?.trim() : undefined,
@@ -218,7 +227,12 @@ export default function OrderBookingForm({
   }
 
   return (
-    <form id="order" className="booking-form booking-form--wizard" onSubmit={handleSubmit}>
+    <form
+      id="order"
+      className={`booking-form booking-form--wizard${!purpose ? " booking-form--locked" : ""}`}
+      onSubmit={handleSubmit}
+      aria-hidden={!purpose}
+    >
       <nav className="booking-form__stepper" aria-label="Booking progress">
         {STEPS.map((item) => {
           const isComplete = item.id <= completedSteps;

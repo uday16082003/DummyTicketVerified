@@ -1,3 +1,4 @@
+import { TICKET_PURPOSES, type TicketPurposeId } from "@/constants/ticket-purposes";
 import { NextResponse } from "next/server";
 import { PASSENGER_TITLES, getBookingFieldVisibility } from "@/constants/booking-form";
 import { sendOrderEmails } from "@/lib/mail/send-order-emails";
@@ -12,6 +13,7 @@ import type {
 
 const BOOKING_MODES: BookingMode[] = ["flight", "hotel", "flight-hotel"];
 const TRIP_TYPES: TripType[] = ["one-way", "round-trip", "multi-trip"];
+const TICKET_PURPOSE_IDS = TICKET_PURPOSES.map((purpose) => purpose.id);
 
 function asOptionalString(value: unknown): string | undefined {
   if (typeof value !== "string") return undefined;
@@ -55,6 +57,14 @@ function parsePassengers(value: unknown): Passenger[] {
   });
 }
 
+function parsePurpose(value: unknown): TicketPurposeId {
+  const purpose = asRequiredString(value, "Purpose") as TicketPurposeId;
+  if (!TICKET_PURPOSE_IDS.includes(purpose)) {
+    throw new Error("Invalid booking purpose");
+  }
+  return purpose;
+}
+
 function parseOrderPayload(body: unknown): OrderPayload {
   if (!body || typeof body !== "object") {
     throw new Error("Invalid request body");
@@ -76,6 +86,7 @@ function parseOrderPayload(body: unknown): OrderPayload {
     phoneCountryCode,
     passengers: parsePassengers(data.passengers),
     bookingMode,
+    purpose: parsePurpose(data.purpose),
     includeHotel: data.includeHotel === true,
     from: asOptionalString(data.from),
     to: asOptionalString(data.to),

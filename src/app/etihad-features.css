@@ -17,10 +17,10 @@
 }
 
 .features--etihad .features__header {
-  text-align: left;
+  text-align: center;
   max-width: 720px;
   margin-bottom: 48px;
-  margin-left: 0;
+  margin-left: auto;
   margin-right: auto;
 }
 
@@ -51,8 +51,9 @@
   font-weight: 300;
   font-size: 1.0625rem;
   max-width: 640px;
-  text-align: left;
-  margin-left: 0;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .features--etihad .features__grid {

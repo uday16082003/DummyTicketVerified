@@ -1,5 +1,6 @@
 import { CTA_CONTACT } from "@/constants/cta-assets";
 import type { EmailEmbeddedImages } from "@/lib/mail/email-images";
+import { getTicketPurposeLabel } from "@/constants/ticket-purposes";
 import type { OrderPayload } from "@/types/order";
 import { orderPrimaryName, passengerFullName } from "@/types/order";
 
@@ -106,6 +107,7 @@ export function buildOrderSummaryLines(order: OrderPayload, orderId: string): st
     `Order ID: ${orderId}`,
     `Email: ${order.email}`,
     `Phone: ${order.phoneCountryCode} ${order.phone}`,
+    `Purpose: ${getTicketPurposeLabel(order.purpose)}`,
     `Service: ${BOOKING_MODE_LABELS[order.bookingMode]}`,
   ];
 

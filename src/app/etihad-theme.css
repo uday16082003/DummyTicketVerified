@@ -134,8 +134,8 @@ main > section::before {
 .booking-steps__header,
 .pricing__header,
 .reviews__header {
-  text-align: left;
-  margin-left: 0;
+  text-align: center;
+  margin-left: auto;
   margin-right: auto;
   max-width: 720px;
 }
@@ -174,8 +174,9 @@ main > section::before {
 .reviews__subtitle {
   font-weight: 300;
   color: var(--etihad-text-bright-on-dark);
-  text-align: left;
-  margin-left: 0;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
   max-width: 640px;
   line-height: 1.8;
   letter-spacing: 0.01em;
@@ -1696,4 +1697,47 @@ main > section::before {
   background: linear-gradient(135deg, #1ebe57 0%, #25d366 55%, #20c997 100%);
   filter: brightness(1.05);
   box-shadow: 0 12px 28px rgba(37, 211, 102, 0.38);
+}
+
+/* Purpose modal — order page Etihad accents */
+.order-page .purpose-modal__eyebrow,
+.order-page .purpose-modal__title-accent {
+  color: var(--etihad-gold);
+}
+
+.order-page .purpose-modal__option.is-active {
+  background: linear-gradient(135deg, var(--etihad-navy-800) 0%, var(--etihad-navy-700) 100%);
+}
+
+.order-page .purpose-modal__option.is-active .purpose-modal__option-icon {
+  color: var(--etihad-gold-light);
+}
+
+.order-page .purpose-modal__option.is-active .purpose-modal__option-check {
+  background: var(--etihad-gold);
+  color: var(--etihad-navy-800);
+}
+
+.order-page .purpose-modal__continue {
+  background: linear-gradient(135deg, var(--etihad-gold-light) 0%, var(--etihad-gold) 100%);
+  box-shadow: 0 12px 28px rgba(154, 123, 79, 0.32);
+}
+
+.order-page .purpose-banner {
+  background: linear-gradient(
+    135deg,
+    rgba(28, 43, 51, 0.98) 0%,
+    rgba(36, 56, 68, 0.98) 100%
+  );
+  border-color: rgba(201, 164, 92, 0.28);
+}
+
+.order-page .purpose-banner__icon {
+  background: rgba(201, 164, 92, 0.16);
+  color: var(--etihad-gold-light);
+}
+
+.order-page .purpose-banner__change {
+  color: var(--etihad-gold-light);
+  border-color: rgba(201, 164, 92, 0.38);
 }
