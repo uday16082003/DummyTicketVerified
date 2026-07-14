@@ -77,7 +77,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     category: "pricing",
     question: "What are your prices?",
     answer:
-      "Flight ticket: ₹500 / $6. Hotel booking: ₹300 / $4. Flight + hotel package: ₹700 / $8. Each additional passenger is ₹249 / $3. One-time payment with no hidden fees — instant delivery after you order.",
+      "Flight ticket: ₹500 / $6 per person. Hotel booking: ₹300 / $4 per person. Flight + hotel package: ₹700 / $8 per person. One-time payment with no hidden fees — instant delivery after you order.",
   },
   {
     id: "airlines",

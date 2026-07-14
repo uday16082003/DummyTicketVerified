@@ -61,7 +61,7 @@ export default function Navbar() {
         <div className="nav__actions">
           <a
             href={CTA_CONTACT.whatsappUrl}
-            className="btn btn--ghost btn--sm nav__whatsapp"
+            className="btn btn--whatsapp btn--sm nav__whatsapp"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -104,7 +104,7 @@ export default function Navbar() {
         <div className="nav__mobile-actions">
           <a
             href={CTA_CONTACT.whatsappUrl}
-            className="btn btn--ghost btn--sm nav__whatsapp"
+            className="btn btn--whatsapp btn--sm nav__whatsapp"
             target="_blank"
             rel="noopener noreferrer"
             onClick={closeMobile}

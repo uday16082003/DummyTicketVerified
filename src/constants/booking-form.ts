@@ -99,7 +99,6 @@ export const BOOKING_BASE_PRICES: Record<
   },
 };
 
-export const EXTRA_PASSENGER_PRICE = { inr: 249, usd: 3 };
 export const HOTEL_ADDON_PRICE = { inr: 300, usd: 4 };
 
 export function formatMoney(inr: number, usd: number): string {
@@ -139,9 +138,8 @@ export function calculateBookingTotal(
   includeHotelAddon: boolean
 ): { inr: number; usd: number; perPersonInr: number; perPersonUsd: number } {
   const base = BOOKING_BASE_PRICES[bookingMode];
-  const extras = Math.max(0, passengerCount - 1);
-  let inr = base.inr + extras * EXTRA_PASSENGER_PRICE.inr;
-  let usd = base.usd + extras * EXTRA_PASSENGER_PRICE.usd;
+  let inr = base.inr * passengerCount;
+  let usd = base.usd * passengerCount;
 
   if (bookingMode === "flight" && includeHotelAddon) {
     inr += HOTEL_ADDON_PRICE.inr;

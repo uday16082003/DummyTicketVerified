@@ -6,7 +6,6 @@ import AirportAutocomplete from "@/components/AirportAutocomplete";
 import DateInput from "@/components/DateInput";
 import {
   BOOKING_BASE_PRICES,
-  EXTRA_PASSENGER_PRICE,
   NATIONALITIES,
   PASSENGER_TITLES,
   PHONE_COUNTRY_CODES,
@@ -499,8 +498,7 @@ export default function OrderBookingForm({
 
             <button type="button" className="booking-form__add-passenger" onClick={addPassenger}>
               <span aria-hidden="true">+</span>
-              Add Another Passenger ({formatMoney(EXTRA_PASSENGER_PRICE.inr, EXTRA_PASSENGER_PRICE.usd)}{" "}
-              per person)
+              Add Another Passenger ({formatMoney(basePrice.inr, basePrice.usd)} per person)
             </button>
           </div>
 

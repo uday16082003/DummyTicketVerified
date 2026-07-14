@@ -49,7 +49,7 @@ export default function OrderSidebar({ layout = "sidebar" }: OrderSidebarProps) 
           <WhatsAppIcon />
         </span>
         <span className="order-sidebar__whatsapp-text">
-          <strong>Prefer WhatsApp?</strong>
+          <strong>Enquiry Now on WhatsApp</strong>
           <span>Chat with us directly →</span>
         </span>
       </a>

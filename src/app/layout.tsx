@@ -4,6 +4,7 @@ import "./globals.css";
 import "./etihad-top.css";
 import "./etihad-features.css";
 import "./etihad-theme.css";
+import WhatsAppFloat from "@/components/WhatsAppFloat";
 
 const fontBody = Jost({
   subsets: ["latin"],
@@ -41,6 +42,7 @@ export default function RootLayout({
     <html lang="en" data-theme="light">
       <body className={`${fontBody.variable} ${fontDisplay.variable} ${fontMono.variable}`}>
         {children}
+        <WhatsAppFloat />
       </body>
     </html>
   );

@@ -1466,22 +1466,21 @@ main > section::before {
 }
 
 .order-sidebar__whatsapp {
-  border-color: rgba(37, 211, 102, 0.35);
-  background: rgba(37, 211, 102, 0.08);
-  color: var(--etihad-white);
+  border: none;
+  background: linear-gradient(135deg, #1ebe57 0%, #25d366 55%, #20c997 100%);
+  box-shadow: 0 12px 28px rgba(37, 211, 102, 0.32);
 }
 
 .order-sidebar__whatsapp:hover {
-  border-color: rgba(37, 211, 102, 0.5);
-  background: rgba(37, 211, 102, 0.14);
+  filter: brightness(1.03);
 }
 
 .order-sidebar__whatsapp-text strong {
-  color: var(--etihad-white);
+  color: #ffffff;
 }
 
 .order-sidebar__whatsapp-text span {
-  color: var(--etihad-gold-light);
+  color: rgba(255, 255, 255, 0.88);
 }
 
 /* ── Order info section ── */
@@ -1684,9 +1683,17 @@ main > section::before {
   background: var(--etihad-gold);
 }
 
-/* Nav WhatsApp hover — gold tint instead of green */
-.nav--etihad .nav__whatsapp:hover {
-  color: var(--etihad-gold-light);
-  background: rgba(179, 142, 93, 0.12);
-  border-color: rgba(179, 142, 93, 0.28);
+/* Nav WhatsApp — green CTA */
+.nav--etihad .btn--whatsapp {
+  background: linear-gradient(135deg, #1ebe57 0%, #25d366 55%, #20c997 100%);
+  color: #ffffff;
+  border: none;
+  box-shadow: 0 8px 22px rgba(37, 211, 102, 0.28);
+}
+
+.nav--etihad .btn--whatsapp:hover {
+  color: #ffffff;
+  background: linear-gradient(135deg, #1ebe57 0%, #25d366 55%, #20c997 100%);
+  filter: brightness(1.05);
+  box-shadow: 0 12px 28px rgba(37, 211, 102, 0.38);
 }
