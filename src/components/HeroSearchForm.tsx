@@ -1,11 +1,22 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useState, type FormEvent, type ReactNode } from "react";
+import { useRouter } from "next/navigation";
 import AirportAutocomplete from "@/components/AirportAutocomplete";
 import DateInput from "@/components/DateInput";
-import { draftToSearchParams } from "@/lib/booking-draft";
+import { BOOKING_BASE_PRICES, formatMoney } from "@/constants/booking-form";
+import {
+  createFlightSegment,
+  createHotelStay,
+  draftToSearchParams,
+  type FlightSegment,
+  type HotelStay,
+} from "@/lib/booking-draft";
 import type { BookingMode, TripType } from "@/types/order";
+
+const MAX_PASSENGERS = 9;
+const MAX_FLIGHT_SEGMENTS = 4;
+const MAX_HOTEL_STAYS = 3;
 
 const BOOKING_MODES: { value: BookingMode; label: string; icon: ReactNode }[] = [
   {
@@ -43,37 +54,110 @@ const BOOKING_MODES: { value: BookingMode; label: string; icon: ReactNode }[] = 
 const TRIP_TYPES: { value: TripType; label: string }[] = [
   { value: "one-way", label: "One Way" },
   { value: "round-trip", label: "Round Trip" },
-  { value: "multi-trip", label: "Multi Trip" },
+  { value: "multi-trip", label: "Multi-City" },
 ];
 
 export default function HeroSearchForm({ className = "" }: { className?: string }) {
   const router = useRouter();
   const [bookingMode, setBookingMode] = useState<BookingMode>("flight");
   const [tripType, setTripType] = useState<TripType>("one-way");
+  const [passengerCount, setPassengerCount] = useState(1);
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [departure, setDeparture] = useState("");
   const [returnDate, setReturnDate] = useState("");
-  const [city, setCity] = useState("");
-  const [checkIn, setCheckIn] = useState("");
-  const [checkOut, setCheckOut] = useState("");
+  const [flightSegments, setFlightSegments] = useState<FlightSegment[]>([
+    createFlightSegment(),
+    createFlightSegment(),
+  ]);
+  const [hotelStays, setHotelStays] = useState<HotelStay[]>([createHotelStay()]);
 
   const showFlight = bookingMode === "flight" || bookingMode === "flight-hotel";
   const showHotel = bookingMode === "hotel" || bookingMode === "flight-hotel";
+  const basePrice = BOOKING_BASE_PRICES[bookingMode];
+
+  function handleTripTypeChange(nextTripType: TripType) {
+    setTripType(nextTripType);
+    if (nextTripType === "multi-trip" && flightSegments.length < 2) {
+      setFlightSegments([createFlightSegment(), createFlightSegment()]);
+    }
+  }
+
+  function updateFlightSegment(index: number, patch: Partial<FlightSegment>) {
+    setFlightSegments((current) =>
+      current.map((segment, i) => (i === index ? { ...segment, ...patch } : segment))
+    );
+  }
+
+  function addFlightSegment() {
+    if (flightSegments.length >= MAX_FLIGHT_SEGMENTS) return;
+    setFlightSegments((current) => [...current, createFlightSegment()]);
+  }
+
+  function removeFlightSegment(index: number) {
+    if (flightSegments.length <= 2) return;
+    setFlightSegments((current) => current.filter((_, i) => i !== index));
+  }
+
+  function updateHotelStay(index: number, patch: Partial<HotelStay>) {
+    setHotelStays((current) =>
+      current.map((stay, i) => (i === index ? { ...stay, ...patch } : stay))
+    );
+  }
+
+  function addHotelStay() {
+    if (hotelStays.length >= MAX_HOTEL_STAYS) return;
+    setHotelStays((current) => [...current, createHotelStay()]);
+  }
+
+  function removeHotelStay(index: number) {
+    if (hotelStays.length <= 1) return;
+    setHotelStays((current) => current.filter((_, i) => i !== index));
+  }
+
+  function addPassenger() {
+    if (passengerCount >= MAX_PASSENGERS) return;
+    setPassengerCount((current) => current + 1);
+  }
+
+  function removePassenger() {
+    if (passengerCount <= 1) return;
+    setPassengerCount((current) => current - 1);
+  }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
     const params = draftToSearchParams({
       bookingMode,
       tripType,
-      from: showFlight ? from.trim() : undefined,
-      to: showFlight ? to.trim() : undefined,
-      departure: showFlight ? departure : undefined,
-      returnDate: showFlight && tripType === "round-trip" ? returnDate : undefined,
-      city: showHotel ? city.trim() : undefined,
-      checkIn: showHotel ? checkIn : undefined,
-      checkOut: showHotel ? checkOut : undefined,
+      passengerCount,
+      from: showFlight && tripType !== "multi-trip" ? from.trim() : undefined,
+      to: showFlight && tripType !== "multi-trip" ? to.trim() : undefined,
+      departure: showFlight && tripType !== "multi-trip" ? departure : undefined,
+      returnDate:
+        showFlight && tripType === "round-trip" ? returnDate : undefined,
+      flightSegments:
+        showFlight && tripType === "multi-trip"
+          ? flightSegments.map((segment) => ({
+              from: segment.from.trim(),
+              to: segment.to.trim(),
+              departure: segment.departure,
+            }))
+          : undefined,
+      city: showHotel && hotelStays.length === 1 ? hotelStays[0].city.trim() : undefined,
+      checkIn: showHotel && hotelStays.length === 1 ? hotelStays[0].checkIn : undefined,
+      checkOut: showHotel && hotelStays.length === 1 ? hotelStays[0].checkOut : undefined,
+      hotelStays:
+        showHotel && hotelStays.length > 1
+          ? hotelStays.map((stay) => ({
+              city: stay.city.trim(),
+              checkIn: stay.checkIn,
+              checkOut: stay.checkOut,
+            }))
+          : undefined,
     });
+
     router.push(`/order?${params.toString()}`);
   }
 
@@ -110,7 +194,7 @@ export default function HeroSearchForm({ className = "" }: { className?: string 
                   name="heroTripType"
                   value={type.value}
                   checked={tripType === type.value}
-                  onChange={() => setTripType(type.value)}
+                  onChange={() => handleTripTypeChange(type.value)}
                 />
                 <span>{type.label}</span>
               </label>
@@ -119,7 +203,7 @@ export default function HeroSearchForm({ className = "" }: { className?: string 
         </div>
       )}
 
-      {showFlight && (
+      {showFlight && tripType !== "multi-trip" && (
         <div className="booking-form__section">
           <h3 className="booking-form__section-title">Route</h3>
           <div className="booking-form__fields">
@@ -138,7 +222,9 @@ export default function HeroSearchForm({ className = "" }: { className?: string 
               required
             />
             <div className="booking-form__row">
-              <label className="booking-form__field">
+              <label
+                className={`booking-form__field${tripType !== "round-trip" ? " booking-form__field--full" : ""}`}
+              >
                 <span className="booking-form__label">Departure</span>
                 <DateInput value={departure} onChange={setDeparture} required />
               </label>
@@ -153,35 +239,142 @@ export default function HeroSearchForm({ className = "" }: { className?: string 
         </div>
       )}
 
-      {showHotel && (
+      {showFlight && tripType === "multi-trip" && (
         <div className="booking-form__section">
-          <h3 className="booking-form__section-title">Hotel</h3>
-          <div className="booking-form__fields">
-            <label className="booking-form__field booking-form__field--full">
-              <span className="booking-form__label">City</span>
-              <span className="booking-form__input-wrap">
-                <input
-                  type="text"
-                  value={city}
-                  onChange={(event) => setCity(event.target.value)}
-                  placeholder="City (e.g. Dubai, UAE)"
-                  required={bookingMode === "hotel"}
-                />
-              </span>
-            </label>
-            <div className="booking-form__row">
-              <label className="booking-form__field">
-                <span className="booking-form__label">Check-in</span>
-                <DateInput value={checkIn} onChange={setCheckIn} required={bookingMode === "hotel"} />
-              </label>
-              <label className="booking-form__field">
-                <span className="booking-form__label">Check-out</span>
-                <DateInput value={checkOut} onChange={setCheckOut} required={bookingMode === "hotel"} />
-              </label>
-            </div>
+          <h3 className="booking-form__section-title">Multi-City Flights</h3>
+          <div className="booking-form__segments">
+            {flightSegments.map((segment, index) => (
+              <div key={`flight-segment-${index}`} className="booking-form__segment-card">
+                <div className="booking-form__segment-card-head">
+                  <p className="booking-form__segment-card-title">Flight {index + 1}</p>
+                  {index > 1 && (
+                    <button
+                      type="button"
+                      className="booking-form__segment-remove"
+                      onClick={() => removeFlightSegment(index)}
+                    >
+                      Remove
+                    </button>
+                  )}
+                </div>
+                <div className="booking-form__fields">
+                  <AirportAutocomplete
+                    label="From"
+                    value={segment.from}
+                    onChange={(value) => updateFlightSegment(index, { from: value })}
+                    placeholder="From (city or airport)"
+                    required
+                  />
+                  <AirportAutocomplete
+                    label="To"
+                    value={segment.to}
+                    onChange={(value) => updateFlightSegment(index, { to: value })}
+                    placeholder="To (city or airport)"
+                    required
+                  />
+                  <label className="booking-form__field booking-form__field--full">
+                    <span className="booking-form__label">Departure</span>
+                    <DateInput
+                      value={segment.departure}
+                      onChange={(value) => updateFlightSegment(index, { departure: value })}
+                      required
+                    />
+                  </label>
+                </div>
+              </div>
+            ))}
           </div>
+          {flightSegments.length < MAX_FLIGHT_SEGMENTS && (
+            <button type="button" className="booking-form__add-segment" onClick={addFlightSegment}>
+              <span aria-hidden="true">+</span>
+              Add Another Flight
+            </button>
+          )}
         </div>
       )}
+
+      {showHotel && (
+        <div className="booking-form__section">
+          <h3 className="booking-form__section-title">
+            {hotelStays.length > 1 ? "Hotels" : "Hotel"}
+          </h3>
+          <div className="booking-form__segments">
+            {hotelStays.map((stay, index) => (
+              <div key={`hotel-stay-${index}`} className="booking-form__segment-card">
+                <div className="booking-form__segment-card-head">
+                  <p className="booking-form__segment-card-title">
+                    {hotelStays.length > 1 ? `Hotel ${index + 1}` : "Stay details"}
+                  </p>
+                  {index > 0 && (
+                    <button
+                      type="button"
+                      className="booking-form__segment-remove"
+                      onClick={() => removeHotelStay(index)}
+                    >
+                      Remove
+                    </button>
+                  )}
+                </div>
+                <div className="booking-form__fields">
+                  <label className="booking-form__field booking-form__field--full">
+                    <span className="booking-form__label">City</span>
+                    <span className="booking-form__input-wrap">
+                      <input
+                        type="text"
+                        value={stay.city}
+                        onChange={(event) => updateHotelStay(index, { city: event.target.value })}
+                        placeholder="City (e.g. Dubai, UAE)"
+                        required={bookingMode === "hotel"}
+                      />
+                    </span>
+                  </label>
+                  <div className="booking-form__row">
+                    <label className="booking-form__field">
+                      <span className="booking-form__label">Check-in</span>
+                      <DateInput
+                        value={stay.checkIn}
+                        onChange={(value) => updateHotelStay(index, { checkIn: value })}
+                        required={bookingMode === "hotel"}
+                      />
+                    </label>
+                    <label className="booking-form__field">
+                      <span className="booking-form__label">Check-out</span>
+                      <DateInput
+                        value={stay.checkOut}
+                        onChange={(value) => updateHotelStay(index, { checkOut: value })}
+                        required={bookingMode === "hotel"}
+                      />
+                    </label>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          {hotelStays.length < MAX_HOTEL_STAYS && (
+            <button type="button" className="booking-form__add-segment" onClick={addHotelStay}>
+              <span aria-hidden="true">+</span>
+              Add Another Hotel
+            </button>
+          )}
+        </div>
+      )}
+
+      <div className="booking-form__section">
+        <div className="booking-form__section-header">
+          <h3 className="booking-form__section-title">Passengers ({passengerCount})</h3>
+          {passengerCount > 1 && (
+            <button type="button" className="booking-form__inline-action" onClick={removePassenger}>
+              Remove passenger
+            </button>
+          )}
+        </div>
+        {passengerCount < MAX_PASSENGERS && (
+          <button type="button" className="booking-form__add-passenger" onClick={addPassenger}>
+            <span aria-hidden="true">+</span>
+            Add Another Passenger ({formatMoney(basePrice.inr, basePrice.usd)} per person)
+          </button>
+        )}
+      </div>
 
       <button type="submit" className="booking-form__submit">
         <span className="booking-form__submit-text">

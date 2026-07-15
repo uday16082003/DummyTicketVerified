@@ -27,7 +27,7 @@ export default function OrderBookingPage() {
   }, [initialDraft]);
 
   const [draft, setDraft] = useState<BookingDraft>(initialDraft);
-  const [passengerCount, setPassengerCount] = useState(1);
+  const [passengerCount, setPassengerCount] = useState(initialDraft.passengerCount ?? 1);
   const [purpose, setPurpose] = useState<TicketPurposeId | null>(null);
   const [purposeModalOpen, setPurposeModalOpen] = useState(true);
   const [pendingPurpose, setPendingPurpose] = useState<TicketPurposeId | null>(null);

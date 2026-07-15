@@ -6,7 +6,7 @@ import {
   calculateBookingTotal,
   formatMoney,
 } from "@/constants/booking-form";
-import { formatDisplayDate, type BookingDraft } from "@/lib/booking-draft";
+import { formatDisplayDate, getFlightSegmentsFromDraft, getHotelStaysFromDraft, type BookingDraft } from "@/lib/booking-draft";
 import type { BookingMode } from "@/types/order";
 
 type OrderSummaryPanelProps = {
@@ -23,6 +23,18 @@ const MODE_LABELS: Record<BookingMode, string> = {
 export default function OrderSummaryPanel({ draft, passengerCount }: OrderSummaryPanelProps) {
   const showFlight = draft.bookingMode === "flight" || draft.bookingMode === "flight-hotel";
   const showHotel = draft.bookingMode === "hotel" || draft.bookingMode === "flight-hotel";
+  const flightSegments = getFlightSegmentsFromDraft(draft);
+  const hotelStays = getHotelStaysFromDraft(draft);
+  const hasFlightRoute =
+    draft.tripType === "multi-trip"
+      ? flightSegments.length >= 2 &&
+        flightSegments.every(
+          (segment) => segment.from.trim() && segment.to.trim() && segment.departure
+        )
+      : Boolean(draft.from?.trim() && draft.to?.trim() && draft.departure);
+  const hasHotelRoute = hotelStays.every(
+    (stay) => stay.city.trim() && stay.checkIn && stay.checkOut
+  );
 
   const pricing = useMemo(
     () => calculateBookingTotal(draft.bookingMode, passengerCount, false),
@@ -36,40 +48,65 @@ export default function OrderSummaryPanel({ draft, passengerCount }: OrderSummar
       <div className="order-summary-sidebar__header">Order Summary</div>
 
       <div className="order-summary-sidebar__body">
-        {showFlight && draft.from && draft.to ? (
+        {showFlight && hasFlightRoute ? (
           <div className="order-summary-sidebar__card">
             <span className="order-summary-sidebar__card-label">
               {MODE_LABELS[draft.bookingMode]}
             </span>
-            <p className="order-summary-sidebar__route">
-              <strong>{draft.from}</strong>
-              <span className="order-summary-sidebar__arrow" aria-hidden="true">
-                →
-              </span>
-              <strong>{draft.to}</strong>
-            </p>
-            {draft.departure && (
-              <p className="order-summary-sidebar__date">
-                {formatDisplayDate(draft.departure)}
-                {draft.returnDate && draft.tripType === "round-trip"
-                  ? ` — ${formatDisplayDate(draft.returnDate)}`
-                  : ""}
-              </p>
+            {draft.tripType === "multi-trip" ? (
+              flightSegments.map((segment, index) => (
+                <div key={`summary-flight-${index}`} className="order-summary-sidebar__segment">
+                  <p className="order-summary-sidebar__route">
+                    <strong>{segment.from}</strong>
+                    <span className="order-summary-sidebar__arrow" aria-hidden="true">
+                      →
+                    </span>
+                    <strong>{segment.to}</strong>
+                  </p>
+                  {segment.departure && (
+                    <p className="order-summary-sidebar__date">
+                      {formatDisplayDate(segment.departure)}
+                    </p>
+                  )}
+                </div>
+              ))
+            ) : (
+              <>
+                <p className="order-summary-sidebar__route">
+                  <strong>{draft.from}</strong>
+                  <span className="order-summary-sidebar__arrow" aria-hidden="true">
+                    →
+                  </span>
+                  <strong>{draft.to}</strong>
+                </p>
+                {draft.departure && (
+                  <p className="order-summary-sidebar__date">
+                    {formatDisplayDate(draft.departure)}
+                    {draft.returnDate && draft.tripType === "round-trip"
+                      ? ` — ${formatDisplayDate(draft.returnDate)}`
+                      : ""}
+                  </p>
+                )}
+              </>
             )}
           </div>
         ) : null}
 
-        {showHotel && draft.city ? (
+        {showHotel && hasHotelRoute ? (
           <div className="order-summary-sidebar__card">
             <span className="order-summary-sidebar__card-label">Hotel</span>
-            <p className="order-summary-sidebar__route">
-              <strong>{draft.city}</strong>
-            </p>
-            {draft.checkIn && draft.checkOut && (
-              <p className="order-summary-sidebar__date">
-                {formatDisplayDate(draft.checkIn)} — {formatDisplayDate(draft.checkOut)}
-              </p>
-            )}
+            {hotelStays.map((stay, index) => (
+              <div key={`summary-hotel-${index}`} className="order-summary-sidebar__segment">
+                <p className="order-summary-sidebar__route">
+                  <strong>{stay.city}</strong>
+                </p>
+                {stay.checkIn && stay.checkOut && (
+                  <p className="order-summary-sidebar__date">
+                    {formatDisplayDate(stay.checkIn)} — {formatDisplayDate(stay.checkOut)}
+                  </p>
+                )}
+              </div>
+            ))}
           </div>
         ) : null}
 

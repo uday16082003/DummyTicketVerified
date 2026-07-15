@@ -12,7 +12,15 @@ import {
   formatMoney,
 } from "@/constants/booking-form";
 import type { BookingDraft } from "@/lib/booking-draft";
-import { formatDisplayDate } from "@/lib/booking-draft";
+import {
+  createFlightSegment,
+  createHotelStay,
+  formatDisplayDate,
+  getFlightSegmentsFromDraft,
+  getHotelStaysFromDraft,
+  type FlightSegment,
+  type HotelStay,
+} from "@/lib/booking-draft";
 import type { BookingMode, OrderApiResponse, PassengerTitle, TripType } from "@/types/order";
 import type { TicketPurposeId } from "@/constants/ticket-purposes";
 
@@ -72,6 +80,10 @@ function createPassenger(): PassengerFormState {
   return { title: "Mr", firstName: "", lastName: "", nationality: "" };
 }
 
+function createPassengers(count: number): PassengerFormState[] {
+  return Array.from({ length: Math.max(1, count) }, () => createPassenger());
+}
+
 type OrderBookingFormProps = {
   initialDraft: BookingDraft;
   initialStep?: 1 | 2 | 3;
@@ -92,7 +104,9 @@ export default function OrderBookingForm({
   const router = useRouter();
   const [step, setStep] = useState<1 | 2 | 3>(initialStep);
   const [draft, setDraft] = useState<BookingDraft>(initialDraft);
-  const [passengers, setPassengers] = useState<PassengerFormState[]>([createPassenger()]);
+  const [passengers, setPassengers] = useState<PassengerFormState[]>(() =>
+    createPassengers(passengerCount)
+  );
   const [email, setEmail] = useState("");
   const [phoneCountryCode, setPhoneCountryCode] = useState("+91");
   const [phone, setPhone] = useState("");
@@ -103,8 +117,18 @@ export default function OrderBookingForm({
   const showHotel = draft.bookingMode === "hotel" || draft.bookingMode === "flight-hotel";
   const basePrice = BOOKING_BASE_PRICES[draft.bookingMode];
   const completedSteps = step - 1;
-  const hasFlightRoute = Boolean(draft.from?.trim() && draft.to?.trim() && draft.departure);
-  const hasHotelRoute = Boolean(draft.city?.trim() && draft.checkIn && draft.checkOut);
+  const flightSegments = getFlightSegmentsFromDraft(draft);
+  const hotelStays = getHotelStaysFromDraft(draft);
+  const hasFlightRoute =
+    draft.tripType === "multi-trip"
+      ? flightSegments.length >= 2 &&
+        flightSegments.every(
+          (segment) => segment.from.trim() && segment.to.trim() && segment.departure
+        )
+      : Boolean(draft.from?.trim() && draft.to?.trim() && draft.departure);
+  const hasHotelRoute = hotelStays.every(
+    (stay) => stay.city.trim() && stay.checkIn && stay.checkOut
+  );
 
   function updateDraft(patch: Partial<BookingDraft>) {
     setDraft((current) => {
@@ -112,6 +136,77 @@ export default function OrderBookingForm({
       onDraftChange(next);
       return next;
     });
+  }
+
+  function setFlightSegments(segments: FlightSegment[]) {
+    const first = segments[0];
+    const last = segments[segments.length - 1];
+    updateDraft({
+      flightSegments: segments,
+      from: first?.from,
+      to: last?.to,
+      departure: first?.departure,
+    });
+  }
+
+  function updateFlightSegment(index: number, patch: Partial<FlightSegment>) {
+    const nextSegments = flightSegments.map((segment, i) =>
+      i === index ? { ...segment, ...patch } : segment
+    );
+    setFlightSegments(nextSegments);
+  }
+
+  function addFlightSegment() {
+    if (flightSegments.length >= 4) return;
+    setFlightSegments([...flightSegments, createFlightSegment()]);
+  }
+
+  function removeFlightSegment(index: number) {
+    if (flightSegments.length <= 2) return;
+    setFlightSegments(flightSegments.filter((_, i) => i !== index));
+  }
+
+  function setHotelStaysList(stays: HotelStay[]) {
+    const first = stays[0];
+    updateDraft({
+      hotelStays: stays.length > 1 ? stays : undefined,
+      city: first?.city,
+      checkIn: first?.checkIn,
+      checkOut: first?.checkOut,
+    });
+  }
+
+  function updateHotelStay(index: number, patch: Partial<HotelStay>) {
+    const nextStays = hotelStays.map((stay, i) => (i === index ? { ...stay, ...patch } : stay));
+    setHotelStaysList(nextStays);
+  }
+
+  function addHotelStay() {
+    if (hotelStays.length >= 3) return;
+    setHotelStaysList([...hotelStays, createHotelStay()]);
+  }
+
+  function removeHotelStay(index: number) {
+    if (hotelStays.length <= 1) return;
+    setHotelStaysList(hotelStays.filter((_, i) => i !== index));
+  }
+
+  function handleTripTypeChange(nextTripType: TripType) {
+    if (nextTripType === "multi-trip") {
+      const segments =
+        draft.tripType === "multi-trip"
+          ? flightSegments
+          : [
+              {
+                from: draft.from ?? "",
+                to: draft.to ?? "",
+                departure: draft.departure ?? "",
+              },
+              createFlightSegment(),
+            ];
+      setFlightSegments(segments.length >= 2 ? segments : [segments[0], createFlightSegment()]);
+    }
+    updateDraft({ tripType: nextTripType });
   }
 
   function updatePassenger(index: number, patch: Partial<PassengerFormState>) {
@@ -286,84 +381,163 @@ export default function OrderBookingForm({
                       type="radio"
                       name="orderTripType"
                       checked={draft.tripType === type.value}
-                      onChange={() => updateDraft({ tripType: type.value })}
+                      onChange={() => handleTripTypeChange(type.value)}
                     />
                     <span>{type.label}</span>
                   </label>
                 ))}
               </fieldset>
 
-              <div className="booking-form__fields">
-                <AirportAutocomplete
-                  label="From"
-                  value={draft.from ?? ""}
-                  onChange={(value) => updateDraft({ from: value })}
-                  required
-                />
-                <AirportAutocomplete
-                  label="To"
-                  value={draft.to ?? ""}
-                  onChange={(value) => updateDraft({ to: value })}
-                  required
-                />
-                <div className="booking-form__row">
-                  <label
-                    className={`booking-form__field${draft.tripType !== "round-trip" ? " booking-form__field--full" : ""}`}
-                  >
-                    <span className="booking-form__label">Departure</span>
-                    <DateInput
-                      value={draft.departure ?? ""}
-                      onChange={(value) => updateDraft({ departure: value })}
-                      required
-                    />
-                  </label>
-                  {draft.tripType === "round-trip" && (
-                    <label className="booking-form__field">
-                      <span className="booking-form__label">Return</span>
+              {draft.tripType === "multi-trip" ? (
+                <div className="booking-form__segments">
+                  {flightSegments.map((segment, index) => (
+                    <div key={`order-flight-${index}`} className="booking-form__segment-card">
+                      <div className="booking-form__segment-card-head">
+                        <p className="booking-form__segment-card-title">Flight {index + 1}</p>
+                        {index > 1 && (
+                          <button
+                            type="button"
+                            className="booking-form__segment-remove"
+                            onClick={() => removeFlightSegment(index)}
+                          >
+                            Remove
+                          </button>
+                        )}
+                      </div>
+                      <div className="booking-form__fields">
+                        <AirportAutocomplete
+                          label="From"
+                          value={segment.from}
+                          onChange={(value) => updateFlightSegment(index, { from: value })}
+                          required
+                        />
+                        <AirportAutocomplete
+                          label="To"
+                          value={segment.to}
+                          onChange={(value) => updateFlightSegment(index, { to: value })}
+                          required
+                        />
+                        <label className="booking-form__field booking-form__field--full">
+                          <span className="booking-form__label">Departure</span>
+                          <DateInput
+                            value={segment.departure}
+                            onChange={(value) => updateFlightSegment(index, { departure: value })}
+                            required
+                          />
+                        </label>
+                      </div>
+                    </div>
+                  ))}
+                  {flightSegments.length < 4 && (
+                    <button
+                      type="button"
+                      className="booking-form__add-segment"
+                      onClick={addFlightSegment}
+                    >
+                      <span aria-hidden="true">+</span>
+                      Add Another Flight
+                    </button>
+                  )}
+                </div>
+              ) : (
+                <div className="booking-form__fields">
+                  <AirportAutocomplete
+                    label="From"
+                    value={draft.from ?? ""}
+                    onChange={(value) => updateDraft({ from: value })}
+                    required
+                  />
+                  <AirportAutocomplete
+                    label="To"
+                    value={draft.to ?? ""}
+                    onChange={(value) => updateDraft({ to: value })}
+                    required
+                  />
+                  <div className="booking-form__row">
+                    <label
+                      className={`booking-form__field${draft.tripType !== "round-trip" ? " booking-form__field--full" : ""}`}
+                    >
+                      <span className="booking-form__label">Departure</span>
                       <DateInput
-                        value={draft.returnDate ?? ""}
-                        onChange={(value) => updateDraft({ returnDate: value })}
+                        value={draft.departure ?? ""}
+                        onChange={(value) => updateDraft({ departure: value })}
                         required
                       />
                     </label>
-                  )}
+                    {draft.tripType === "round-trip" && (
+                      <label className="booking-form__field">
+                        <span className="booking-form__label">Return</span>
+                        <DateInput
+                          value={draft.returnDate ?? ""}
+                          onChange={(value) => updateDraft({ returnDate: value })}
+                          required
+                        />
+                      </label>
+                    )}
+                  </div>
                 </div>
-              </div>
+              )}
             </>
           )}
 
           {showHotel && (
-            <div className="booking-form__fields">
-              <label className="booking-form__field booking-form__field--full">
-                <span className="booking-form__label">City</span>
-                <span className="booking-form__input-wrap">
-                  <input
-                    type="text"
-                    value={draft.city ?? ""}
-                    onChange={(event) => updateDraft({ city: event.target.value })}
-                    placeholder="City (e.g. Dubai, UAE)"
-                    required={draft.bookingMode === "hotel"}
-                  />
-                </span>
-              </label>
-              <div className="booking-form__row">
-                <label className="booking-form__field">
-                  <span className="booking-form__label">Check-in</span>
-                  <DateInput
-                    value={draft.checkIn ?? ""}
-                    onChange={(value) => updateDraft({ checkIn: value })}
-                    required={draft.bookingMode === "hotel"}
-                  />
-                </label>
-                <label className="booking-form__field">
-                  <span className="booking-form__label">Check-out</span>
-                  <DateInput
-                    value={draft.checkOut ?? ""}
-                    onChange={(value) => updateDraft({ checkOut: value })}
-                    required={draft.bookingMode === "hotel"}
-                  />
-                </label>
-              </div>
+            <div className="booking-form__segments">
+              {hotelStays.map((stay, index) => (
+                <div key={`order-hotel-${index}`} className="booking-form__segment-card">
+                  <div className="booking-form__segment-card-head">
+                    <p className="booking-form__segment-card-title">
+                      {hotelStays.length > 1 ? `Hotel ${index + 1}` : "Hotel"}
+                    </p>
+                    {index > 0 && (
+                      <button
+                        type="button"
+                        className="booking-form__segment-remove"
+                        onClick={() => removeHotelStay(index)}
+                      >
+                        Remove
+                      </button>
+                    )}
+                  </div>
+                  <div className="booking-form__fields">
+                    <label className="booking-form__field booking-form__field--full">
+                      <span className="booking-form__label">City</span>
+                      <span className="booking-form__input-wrap">
+                        <input
+                          type="text"
+                          value={stay.city}
+                          onChange={(event) => updateHotelStay(index, { city: event.target.value })}
+                          placeholder="City (e.g. Dubai, UAE)"
+                          required={draft.bookingMode === "hotel"}
+                        />
+                      </span>
+                    </label>
+                    <div className="booking-form__row">
+                      <label className="booking-form__field">
+                        <span className="booking-form__label">Check-in</span>
+                        <DateInput
+                          value={stay.checkIn}
+                          onChange={(value) => updateHotelStay(index, { checkIn: value })}
+                          required={draft.bookingMode === "hotel"}
+                        />
+                      </label>
+                      <label className="booking-form__field">
+                        <span className="booking-form__label">Check-out</span>
+                        <DateInput
+                          value={stay.checkOut}
+                          onChange={(value) => updateHotelStay(index, { checkOut: value })}
+                          required={draft.bookingMode === "hotel"}
+                        />
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              ))}
+              {hotelStays.length < 3 && (
+                <button type="button" className="booking-form__add-segment" onClick={addHotelStay}>
+                  <span aria-hidden="true">+</span>
+                  Add Another Hotel
+                </button>
+              )}
             </div>
           )}
 
@@ -382,29 +556,43 @@ export default function OrderBookingForm({
         <div className="booking-form__step-panel" data-step="2">
           {(hasFlightRoute || hasHotelRoute) && (
             <div className="booking-form__route-recap" aria-label="Selected route">
-              {hasFlightRoute && (
-                <p>
-                  <strong>
-                    {draft.from} → {draft.to}
-                  </strong>
-                  <span className="booking-form__route-recap-date">
-                    {" "}
-                    · Departure {formatDisplayDate(draft.departure)}
-                    {draft.tripType === "round-trip" && draft.returnDate
-                      ? ` · Return ${formatDisplayDate(draft.returnDate)}`
-                      : ""}
-                  </span>
-                </p>
-              )}
-              {hasHotelRoute && (
-                <p>
-                  <strong>{draft.city}</strong>
-                  <span className="booking-form__route-recap-date">
-                    {" "}
-                    · {formatDisplayDate(draft.checkIn)} – {formatDisplayDate(draft.checkOut)}
-                  </span>
-                </p>
-              )}
+              {hasFlightRoute &&
+                (draft.tripType === "multi-trip" ? (
+                  flightSegments.map((segment, index) => (
+                    <p key={`recap-flight-${index}`}>
+                      <strong>
+                        {segment.from} → {segment.to}
+                      </strong>
+                      <span className="booking-form__route-recap-date">
+                        {" "}
+                        · Departure {formatDisplayDate(segment.departure)}
+                      </span>
+                    </p>
+                  ))
+                ) : (
+                  <p>
+                    <strong>
+                      {draft.from} → {draft.to}
+                    </strong>
+                    <span className="booking-form__route-recap-date">
+                      {" "}
+                      · Departure {formatDisplayDate(draft.departure)}
+                      {draft.tripType === "round-trip" && draft.returnDate
+                        ? ` · Return ${formatDisplayDate(draft.returnDate)}`
+                        : ""}
+                    </span>
+                  </p>
+                ))}
+              {hasHotelRoute &&
+                hotelStays.map((stay, index) => (
+                  <p key={`recap-hotel-${index}`}>
+                    <strong>{stay.city}</strong>
+                    <span className="booking-form__route-recap-date">
+                      {" "}
+                      · {formatDisplayDate(stay.checkIn)} – {formatDisplayDate(stay.checkOut)}
+                    </span>
+                  </p>
+                ))}
             </div>
           )}
 

@@ -1916,6 +1916,73 @@ a.hero__highlight:hover {
   background: rgba(34, 211, 238, 0.05);
 }
 
+.booking-form__segments {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.booking-form__segment-card {
+  padding: 16px;
+  border-radius: 14px;
+  border: 1px solid var(--color-border);
+  background: var(--color-overlay-hover);
+}
+
+.booking-form__segment-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.booking-form__segment-card-title {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.booking-form__segment-remove {
+  border: none;
+  background: transparent;
+  color: var(--color-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.booking-form__segment-remove:hover {
+  color: var(--color-text);
+}
+
+.booking-form__add-segment {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px dashed var(--color-border-strong);
+  border-radius: 12px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  background: transparent;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.booking-form__add-segment:hover {
+  color: var(--color-text);
+  border-color: var(--color-accent);
+  background: rgba(34, 211, 238, 0.05);
+}
+
 .booking-form__summary {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -6820,6 +6887,12 @@ a.site-footer__contact-item:hover {
   margin-top: 6px;
   font-size: 0.8125rem;
   color: var(--color-text-secondary);
+}
+
+.order-summary-sidebar__segment + .order-summary-sidebar__segment {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--color-border);
 }
 
 .order-summary-sidebar__pricing {

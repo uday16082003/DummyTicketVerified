@@ -503,6 +503,44 @@ html {
   background: rgba(179, 142, 93, 0.08);
 }
 
+.hero--etihad .booking-form--etihad .booking-form__section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.hero--etihad .booking-form--etihad .booking-form__inline-action {
+  border: none;
+  background: transparent;
+  color: var(--etihad-gold-dark);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.hero--etihad .booking-form--etihad .booking-form__segment-card {
+  background: #fafbfc;
+  border-color: #e2e8f0;
+}
+
+.hero--etihad .booking-form--etihad .booking-form__segment-card-title {
+  color: #64748b;
+}
+
+.hero--etihad .booking-form--etihad .booking-form__add-passenger,
+.hero--etihad .booking-form--etihad .booking-form__add-segment {
+  border-color: #d8dee6;
+  color: #64748b;
+}
+
+.hero--etihad .booking-form--etihad .booking-form__add-passenger:hover,
+.hero--etihad .booking-form--etihad .booking-form__add-segment:hover {
+  border-color: var(--etihad-gold);
+  color: var(--etihad-navy-800);
+  background: rgba(179, 142, 93, 0.08);
+}
+
 @media (max-width: 1024px) {
   .hero--etihad .hero__inner {
     gap: 40px;
@@ -516,7 +554,7 @@ html {
   }
 
   .hero-booking-card {
-    overflow: hidden;
+    overflow: visible;
   }
 
   .hero-booking-card__head,
