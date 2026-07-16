@@ -6,10 +6,12 @@ import AirportAutocomplete from "@/components/AirportAutocomplete";
 import DateInput from "@/components/DateInput";
 import {
   BOOKING_BASE_PRICES,
+  MAX_PASSENGERS,
   NATIONALITIES,
   PASSENGER_TITLES,
   PHONE_COUNTRY_CODES,
   formatMoney,
+  isPassengerDetailsComplete,
 } from "@/constants/booking-form";
 import type { BookingDraft } from "@/lib/booking-draft";
 import {
@@ -126,6 +128,8 @@ export default function OrderBookingForm({
           (segment) => segment.from.trim() && segment.to.trim() && segment.departure
         )
       : Boolean(draft.from?.trim() && draft.to?.trim() && draft.departure);
+  const canAddPassenger =
+    isPassengerDetailsComplete(passengers[0]) && passengers.length < MAX_PASSENGERS;
   const hasHotelRoute = hotelStays.every(
     (stay) => stay.city.trim() && stay.checkIn && stay.checkOut
   );
@@ -600,13 +604,6 @@ export default function OrderBookingForm({
             <h3 className="booking-form__section-title">
               Passengers ({passengers.length})
             </h3>
-            <button
-              type="button"
-              className="booking-form__section-action"
-              onClick={addPassenger}
-            >
-              + Add Passenger
-            </button>
           </div>
 
           <div className="booking-form__passengers">
@@ -698,10 +695,12 @@ export default function OrderBookingForm({
               </div>
             ))}
 
-            <button type="button" className="booking-form__add-passenger" onClick={addPassenger}>
-              <span aria-hidden="true">+</span>
-              Add Another Passenger ({formatMoney(basePrice.inr, basePrice.usd)} per person)
-            </button>
+            {canAddPassenger && (
+              <button type="button" className="booking-form__add-passenger" onClick={addPassenger}>
+                <span aria-hidden="true">+</span>
+                Add Another Passenger ({formatMoney(basePrice.inr, basePrice.usd)} per person)
+              </button>
+            )}
           </div>
 
           <div className="booking-form__step-actions">

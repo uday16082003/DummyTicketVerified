@@ -4,7 +4,6 @@ import { useState, type FormEvent, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import AirportAutocomplete from "@/components/AirportAutocomplete";
 import DateInput from "@/components/DateInput";
-import { BOOKING_BASE_PRICES, formatMoney } from "@/constants/booking-form";
 import {
   createFlightSegment,
   createHotelStay,
@@ -14,7 +13,6 @@ import {
 } from "@/lib/booking-draft";
 import type { BookingMode, TripType } from "@/types/order";
 
-const MAX_PASSENGERS = 9;
 const MAX_FLIGHT_SEGMENTS = 4;
 const MAX_HOTEL_STAYS = 3;
 
@@ -61,7 +59,7 @@ export default function HeroSearchForm({ className = "" }: { className?: string 
   const router = useRouter();
   const [bookingMode, setBookingMode] = useState<BookingMode>("flight");
   const [tripType, setTripType] = useState<TripType>("one-way");
-  const [passengerCount, setPassengerCount] = useState(1);
+  const passengerCount = 1;
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [departure, setDeparture] = useState("");
@@ -74,7 +72,6 @@ export default function HeroSearchForm({ className = "" }: { className?: string 
 
   const showFlight = bookingMode === "flight" || bookingMode === "flight-hotel";
   const showHotel = bookingMode === "hotel" || bookingMode === "flight-hotel";
-  const basePrice = BOOKING_BASE_PRICES[bookingMode];
 
   function handleTripTypeChange(nextTripType: TripType) {
     setTripType(nextTripType);
@@ -113,16 +110,6 @@ export default function HeroSearchForm({ className = "" }: { className?: string 
   function removeHotelStay(index: number) {
     if (hotelStays.length <= 1) return;
     setHotelStays((current) => current.filter((_, i) => i !== index));
-  }
-
-  function addPassenger() {
-    if (passengerCount >= MAX_PASSENGERS) return;
-    setPassengerCount((current) => current + 1);
-  }
-
-  function removePassenger() {
-    if (passengerCount <= 1) return;
-    setPassengerCount((current) => current - 1);
   }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -360,20 +347,7 @@ export default function HeroSearchForm({ className = "" }: { className?: string 
       )}
 
       <div className="booking-form__section">
-        <div className="booking-form__section-header">
-          <h3 className="booking-form__section-title">Passengers ({passengerCount})</h3>
-          {passengerCount > 1 && (
-            <button type="button" className="booking-form__inline-action" onClick={removePassenger}>
-              Remove passenger
-            </button>
-          )}
-        </div>
-        {passengerCount < MAX_PASSENGERS && (
-          <button type="button" className="booking-form__add-passenger" onClick={addPassenger}>
-            <span aria-hidden="true">+</span>
-            Add Another Passenger ({formatMoney(basePrice.inr, basePrice.usd)} per person)
-          </button>
-        )}
+        <h3 className="booking-form__section-title">Passengers ({passengerCount})</h3>
       </div>
 
       <button type="submit" className="booking-form__submit">

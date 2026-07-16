@@ -1,6 +1,26 @@
 import type { BookingMode } from "@/types/order";
 
+export const MAX_PASSENGERS = 9;
+
 export const PASSENGER_TITLES = ["Mr", "Mrs", "Ms", "Miss", "Dr", "Mx"] as const;
+
+export type PassengerDetails = {
+  firstName: string;
+  lastName: string;
+  nationality: string;
+};
+
+export function isPassengerDetailsComplete(
+  passenger: PassengerDetails | null | undefined
+): boolean {
+  if (!passenger) return false;
+
+  return (
+    passenger.firstName.trim().length > 0 &&
+    passenger.lastName.trim().length > 0 &&
+    passenger.nationality.trim().length > 0
+  );
+}
 
 export const NATIONALITIES = [
   "Indian",

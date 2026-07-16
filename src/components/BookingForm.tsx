@@ -4,11 +4,13 @@ import { useRouter } from "next/navigation";
 import { useMemo, useState, type FormEvent, type ReactNode } from "react";
 import {
   BOOKING_BASE_PRICES,
+  MAX_PASSENGERS,
   NATIONALITIES,
   PASSENGER_TITLES,
   PHONE_COUNTRY_CODES,
   calculateBookingTotal,
   formatMoney,
+  isPassengerDetailsComplete,
 } from "@/constants/booking-form";
 import type {
   BookingMode,
@@ -100,6 +102,8 @@ export default function BookingForm() {
   );
 
   const basePrice = BOOKING_BASE_PRICES[bookingMode];
+  const canAddPassenger =
+    isPassengerDetailsComplete(passengers[0]) && passengers.length < MAX_PASSENGERS;
 
   function updatePassenger(index: number, patch: Partial<PassengerFormState>) {
     setPassengers((current) =>
@@ -261,13 +265,6 @@ export default function BookingForm() {
             <h3 className="booking-form__section-title">
               Passengers ({passengers.length})
             </h3>
-            <button
-              type="button"
-              className="booking-form__section-action"
-              onClick={addPassenger}
-            >
-              + Add Passenger
-            </button>
           </div>
 
           <div className="booking-form__passengers">
@@ -381,10 +378,12 @@ export default function BookingForm() {
               </div>
             ))}
 
-            <button type="button" className="booking-form__add-passenger" onClick={addPassenger}>
-              <span aria-hidden="true">+</span>
-              Add Another Passenger ({formatMoney(basePrice.inr, basePrice.usd)} per person)
-            </button>
+            {canAddPassenger && (
+              <button type="button" className="booking-form__add-passenger" onClick={addPassenger}>
+                <span aria-hidden="true">+</span>
+                Add Another Passenger ({formatMoney(basePrice.inr, basePrice.usd)} per person)
+              </button>
+            )}
           </div>
         </div>
 
