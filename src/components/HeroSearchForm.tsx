@@ -292,11 +292,12 @@ export default function HeroSearchForm({ className = "" }: { className?: string 
                   <p className="booking-form__segment-card-title">
                     {hotelStays.length > 1 ? `Hotel ${index + 1}` : "Stay details"}
                   </p>
-                  {index > 0 && (
+                  {hotelStays.length > 1 && index > 0 && (
                     <button
                       type="button"
                       className="booking-form__segment-remove"
                       onClick={() => removeHotelStay(index)}
+                      aria-label={`Remove hotel ${index + 1}`}
                     >
                       Remove
                     </button>
@@ -345,10 +346,6 @@ export default function HeroSearchForm({ className = "" }: { className?: string 
           )}
         </div>
       )}
-
-      <div className="booking-form__section">
-        <h3 className="booking-form__section-title">Passengers ({passengerCount})</h3>
-      </div>
 
       <button type="submit" className="booking-form__submit">
         <span className="booking-form__submit-text">

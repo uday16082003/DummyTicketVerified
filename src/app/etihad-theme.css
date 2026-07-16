@@ -1289,8 +1289,18 @@ main > section::before {
 
 .order-checkout .booking-form__input-wrap--date .booking-form__date-input {
   padding-right: 16px;
+  width: 100%;
+  box-sizing: border-box;
   min-width: 0;
   max-width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.order-checkout .booking-form__input-wrap--date {
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 /* ── Passenger cards & actions ── */
@@ -1740,4 +1750,60 @@ main > section::before {
 .order-page .purpose-banner__change {
   color: var(--etihad-gold-light);
   border-color: rgba(201, 164, 92, 0.38);
+}
+
+@media (max-width: 768px) {
+  .order-checkout {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .order-checkout .glow-border,
+  .order-checkout .glow-border__inner {
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .order-checkout .booking-form {
+    padding: 20px 16px;
+    max-width: 100%;
+    min-width: 0;
+    overflow-x: hidden;
+  }
+
+  .order-checkout .booking-form__row {
+    grid-template-columns: 1fr;
+  }
+
+  .order-checkout .booking-form__field,
+  .order-checkout .booking-form__input-wrap,
+  .order-checkout .booking-form__fields,
+  .order-checkout .booking-form__row {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .order-checkout .booking-form__trip {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .order-checkout .booking-form__trip-option {
+    flex: 1 1 calc(50% - 4px);
+    min-width: 0;
+  }
+
+  .order-checkout .booking-form__input-wrap input,
+  .order-checkout .booking-form__input-wrap select,
+  .order-checkout .booking-form__input-wrap--date .booking-form__date-input {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .order-checkout .booking-form__trip-option {
+    flex: 1 1 100%;
+  }
 }

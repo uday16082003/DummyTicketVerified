@@ -299,12 +299,14 @@ html {
   position: relative;
   z-index: 1;
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   background: var(--etihad-white);
   border-radius: 20px;
   box-shadow:
     0 24px 64px rgba(18, 30, 38, 0.28),
     0 8px 24px rgba(18, 30, 38, 0.12);
-  overflow: visible;
+  overflow: hidden;
 }
 
 .hero-booking-card__head {
@@ -329,6 +331,10 @@ html {
 .hero--etihad .booking-form--etihad {
   padding: 22px 28px 28px;
   gap: 22px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
   overflow: visible;
 }
 
@@ -436,8 +442,12 @@ html {
 .hero--etihad .booking-form--etihad .booking-form__input-wrap--date .booking-form__date-input {
   padding-right: 16px;
   padding-left: 44px;
+  width: 100%;
+  box-sizing: border-box;
   min-width: 0;
   max-width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .hero--etihad .booking-form--etihad .booking-form__field > .booking-form__input-wrap:not(:has(.booking-form__input-icon)) > input {
@@ -528,6 +538,14 @@ html {
   color: #64748b;
 }
 
+.hero--etihad .booking-form--etihad .booking-form__segment-remove {
+  color: #ef4444;
+}
+
+.hero--etihad .booking-form--etihad .booking-form__segment-remove:hover {
+  color: #dc2626;
+}
+
 .hero--etihad .booking-form--etihad .booking-form__add-passenger,
 .hero--etihad .booking-form--etihad .booking-form__add-segment {
   border-color: #d8dee6;
@@ -553,8 +571,15 @@ html {
     padding-bottom: 48px;
   }
 
+  .hero--etihad .hero__visual {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
   .hero-booking-card {
-    overflow: visible;
+    overflow: hidden;
+    border-radius: 16px;
   }
 
   .hero-booking-card__head,
@@ -572,8 +597,66 @@ html {
   }
 
   .hero--etihad .booking-form--etihad .booking-form__field,
-  .hero--etihad .booking-form--etihad .booking-form__input-wrap {
+  .hero--etihad .booking-form--etihad .booking-form__input-wrap,
+  .hero--etihad .booking-form--etihad .booking-form__fields,
+  .hero--etihad .booking-form--etihad .booking-form__row,
+  .hero--etihad .booking-form--etihad .booking-form__section {
+    width: 100%;
+    max-width: 100%;
     min-width: 0;
+  }
+
+  .hero--etihad .booking-form--etihad .booking-form__trip {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .hero--etihad .booking-form--etihad .booking-form__trip-option {
+    flex: 1 1 calc(50% - 4px);
+    min-width: 0;
+  }
+
+  .hero--etihad .booking-form--etihad .booking-form__trip-option span {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero--etihad .hero__inner {
+    padding-top: 24px;
+    padding-bottom: 40px;
+  }
+
+  .hero-booking-card__head,
+  .hero--etihad .booking-form--etihad {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .hero-booking-card__head {
+    padding-top: 20px;
+  }
+
+  .hero--etihad .booking-form--etihad {
+    padding-top: 16px;
+    padding-bottom: 20px;
+    gap: 18px;
+  }
+
+  .hero--etihad .hero__title {
+    font-size: clamp(1.75rem, 8vw, 2.25rem);
+  }
+
+  .hero--etihad .booking-form--etihad .booking-form__trip-option {
+    flex: 1 1 100%;
+  }
+
+  .hero--etihad .booking-form--etihad .booking-form__input-wrap input,
+  .hero--etihad .booking-form--etihad .booking-form__input-wrap select,
+  .hero--etihad .booking-form--etihad .booking-form__input-wrap--date .booking-form__date-input {
+    font-size: 16px;
   }
 }
 

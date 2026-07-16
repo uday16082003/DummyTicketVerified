@@ -492,11 +492,12 @@ export default function OrderBookingForm({
                     <p className="booking-form__segment-card-title">
                       {hotelStays.length > 1 ? `Hotel ${index + 1}` : "Hotel"}
                     </p>
-                    {index > 0 && (
+                    {hotelStays.length > 1 && index > 0 && (
                       <button
                         type="button"
                         className="booking-form__segment-remove"
                         onClick={() => removeHotelStay(index)}
+                        aria-label={`Remove hotel ${index + 1}`}
                       >
                         Remove
                       </button>
